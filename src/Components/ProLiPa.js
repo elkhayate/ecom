@@ -12,10 +12,10 @@ export default class ProLiPa extends Component {
                 <Container>
                     {this.props.Products.map(Pro => {
                         return (
-                            <Product 
+                            <Product
                                 key = {Pro.id}
-                                Src = {Pro.gallery[0]}
-                                Title = {Pro.name}
+                                HandlePurchase = {this.props.HandlePurchase} 
+                                Product = {Pro}
                                 Price = {this.props.HandlePrice(Pro.prices)}
                             />
                         )

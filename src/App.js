@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
-import Navbar from './Components/Navbar'
-import ProLiPa from './Components/ProLiPa'
-import { CategoryQuery, CurrenciesQuery } from './Queries'
+import React, { Component } from 'react';
+import Navbar from './Components/Navbar';
+import ProLiPa from './Components/ProLiPa';
+import { CategoryQuery, CurrenciesQuery } from './Queries';
+
+
+
 export default class App extends Component{
   constructor(props) {
     super(props)
@@ -61,6 +64,24 @@ export default class App extends Component{
     }
   }
 
+  handlePurchase = (item) => {
+    console.log("tranit")
+    var newList = this.state.itemsSold;
+    for(let i = 0; i < newList.length; i ++ ) {
+        if(item.attributes === newList[i].attributes){
+          newList[i].count += 1;
+          return this.setState({
+            itemsSold : newList
+          })
+          
+        }
+    }
+    newList = [...newList, item];
+      return this.setState({
+          itemsSold : newList
+      })
+
+  }
   render(){
     return(
       <div onClick={ () => {
@@ -93,6 +114,7 @@ export default class App extends Component{
           console.log(data)
           return (
             <ProLiPa 
+              HandlePurchase = {this.handlePurchase}
               Data={data.category} 
               Products = {data.category.products}
               HandlePrice = {this.handlePrice}

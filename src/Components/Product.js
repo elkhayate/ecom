@@ -4,14 +4,29 @@ import sold from "../assets/Sold_icon.png"
 
 
 export default class Product extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             Attributes : this.props.Product.attributes,
+             Count : 1,
+             Product : this.props.Product,
+        }
+    }
+    handleclick = () => {
+        let newItem = {attributes : this.state.Attributes, count : this.state.Count, product : this.state.Product};
+        this.props.HandlePurchase(newItem)
+        console.log(newItem)
+    }
     render(){
             return(
                 <Container>
-                    <Image src={this.props.Src} alt = "Product"  />
+                    <Image src={this.props.Product.gallery[0]} alt = "Product"  />
                     <Content>
-                        <Title>{this.props.Title}</Title>
+                        <Title>{this.props.Product.name}</Title>
                         <Price>{this.props.Price}</Price>
                     </Content>
+                    <button onClick={()=>this.handleclick()}>simo</button>
                 </Container>
             )
     }
