@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Navbar from './Components/Navbar'
-
-
+import ProLiPa from './Components/ProLiPa'
+import { CategoryQuery } from './Queries'
 export default class App extends Component{
   constructor(props) {
     super(props)
@@ -28,12 +28,24 @@ export default class App extends Component{
   
   render(){
     return(
+      <>
       <Navbar 
         ShowCurrencies = {this.state.showCurrencies} 
         HandleToggler={this.handleToggler}
         HandleCategory={this.handleCategory} 
         Sold={this.state.itemsSold}
       />
+      <CategoryQuery Input="tech">
+        {({data, loading, error})=>{
+          if(loading) return null
+          if (error) console.log(error);
+          console.log(data)
+          return (
+            <ProLiPa Data={data.category.products}/>
+          )
+        }}
+      </CategoryQuery>
+      </>
     )
   }
 }
