@@ -7,10 +7,11 @@ export default class App extends Component{
     super(props)
   
     this.state = {
-       itemsSold : [{Pid : "simo" , count : 1}],
+       itemsSold : [],
        Category : '',
        showCurrencies : false,
        showCartOverlay : false,
+       whichCurrency : 'USD',
     }
   }
   handleSoldCount=(val,Id)=>{
@@ -28,6 +29,11 @@ export default class App extends Component{
       itemsSold : listOut,
     })
   }
+  handleCurrency = (val) => {
+    this.setState({
+      whichCurrency : val,
+    })
+  }
   handleCategory=(val)=>{
      this.setState({
       Category : val
@@ -40,7 +46,21 @@ export default class App extends Component{
     })
   }
   
-  
+  handlePrice = (Data) => {
+    switch(this.state.whichCurrency) {
+      case "USD": 
+        return `$${Data[0].amout}`;
+      case "GBP": 
+        return `£${Data[1].amout}`;
+      case "AUD": 
+        return `$${Data[2].amout}`;
+      case "JPY": 
+        return `¥${Data[3].amout}`;
+      case "RUB": 
+        return `₽${Data[4].amout}`;
+    }
+  }
+
   render(){
     return(
       <div onClick={ () => {
@@ -55,6 +75,7 @@ export default class App extends Component{
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              HanleCurrency = {this.handleCurrency}
               ShowCartOverlay = {this.state.showCartOverlay}
               ShowCurrencies = {this.state.showCurrencies} 
               HandleToggler={this.handleToggler}
@@ -65,9 +86,15 @@ export default class App extends Component{
             )
         }}
       </CurrenciesQuery>
-      {this.state.itemsSold[0] ? <h1>{`hanaaa : ${this.state.itemsSold[0].count}`}</h1> : <h1>hello</h1>}
-      <button onClick={()=>this.handleSoldCount('plus', 'simo')}>zid</button>
-      <button onClick={()=>this.handleSoldCount('minus', 'simo')}>nqes</button>
+      <CategoryQuery Input={this.state.Category}>
+        {({data, loading, error})=>{
+          if(loading) return null;
+          if(error) console.log(`Error : ${error}`)
+          return (
+            <ProLiPa Data={data} />
+          )
+        }}
+      </CategoryQuery>
       </div>
     )
   }

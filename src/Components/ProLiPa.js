@@ -14,7 +14,7 @@ export default class ProLiPa extends Component {
     render(){
         return(
             
-            this.props.Data.map(p => <h1>{p.name}</h1>)
+            this.props.Data.category.products.map(p => <h1>{p.name}</h1>)
             
         )
     }

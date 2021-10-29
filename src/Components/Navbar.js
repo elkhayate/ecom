@@ -17,8 +17,10 @@ export default class Navbar extends Component{
     }
 
     handleCategory=(val)=>{
-        this.setState({whichCategory : val});
-        this.props.HandleCategory(val) 
+        this.setState({
+            whichCategory : val
+        });
+        this.props.HandleCategory(val); 
     }
 
     handleCurrSign = (val) => {
@@ -35,11 +37,12 @@ export default class Navbar extends Component{
             return `₽ ${val}`;
         }
     }
-    
+
     handleCurrVal = (val) => {
         this.setState({
             selectedCurr : val,
-        })
+        });
+        this.props.HanleCurrency(val);
     }
     render(){
         return(
