@@ -26,15 +26,15 @@ export default class Navbar extends Component{
     handleCurrSign = (val) => {
         switch(val){
             case "USD": 
-            return `$ ${val}`;
+                return `$ ${val}`;
             case "JPY": 
-            return `¥ ${val}`;
+                return `¥ ${val}`;
             case "GBP": 
-            return `£ ${val}`;
+                return `£ ${val}`;
             case "AUD": 
-            return `$ ${val}`;
+                return `$ ${val}`;
             case "RUB": 
-            return `₽ ${val}`;
+                return `₽ ${val}`;
         }
     }
 
@@ -263,6 +263,7 @@ const Choice = styled.div`
 `;
 
 const Choices = styled.div`
+    z-index: 2;
     width: 104px;
     position: absolute;
     top:60px;

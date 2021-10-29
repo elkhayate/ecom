@@ -48,16 +48,16 @@ export default class App extends Component{
   
   handlePrice = (Data) => {
     switch(this.state.whichCurrency) {
-      case "USD": 
-        return `$${Data[0].amout}`;
+      case 'USD': 
+        return `$${Data[0].amount}`;
       case "GBP": 
-        return `£${Data[1].amout}`;
+        return `£${Data[1].amount}`;
       case "AUD": 
-        return `$${Data[2].amout}`;
+        return `$${Data[2].amount}`;
       case "JPY": 
-        return `¥${Data[3].amout}`;
+        return `¥${Data[3].amount}`;
       case "RUB": 
-        return `₽${Data[4].amout}`;
+        return `₽${Data[4].amount}`;
     }
   }
 
@@ -90,8 +90,13 @@ export default class App extends Component{
         {({data, loading, error})=>{
           if(loading) return null;
           if(error) console.log(`Error : ${error}`)
+          console.log(data)
           return (
-            <ProLiPa Data={data} />
+            <ProLiPa 
+              Data={data.category} 
+              Products = {data.category.products}
+              HandlePrice = {this.handlePrice}
+            />
           )
         }}
       </CategoryQuery>
