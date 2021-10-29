@@ -11,12 +11,27 @@ export default class Navbar extends Component{
         super(props)
     
         this.state = {
-             which : ''
+             which : '',
+             selectedCurr : 'USD'
         }
     }
     handleCategory=(val)=>{
         this.setState({which : val});
         this.props.HandleCategory(val) 
+    }
+    handleCurrSign = (val) => {
+        switch(val){
+            case "USD": 
+            return `$ ${val}`;
+            case "JPY": 
+            return `¥ ${val}`;
+            case "GBP": 
+            return `£ ${val}`;
+            case "AUD": 
+            return `$ ${val}`;
+            case "RUB": 
+            return `₽ ${val}`;
+        }
     }
     render(){
         return(
@@ -88,25 +103,30 @@ export default class Navbar extends Component{
                         this.props.ShowCurrencies 
                         &&
                         <Choices>
-                            <CurrenciesQuery>
-                                    {({data,loading,error})=>{
-                                        if (loading) return null
-                                        if (error) console.log(`Error : ${error}`)
-                                        console.log(data.currencies)
-                                        let i = 0;
-                                        do{
-                                             
-                                        return        <Choice 
-                                                    key={data.currencies[i]} 
-                                                    onClick={()=> {this.props.HandleToggler();}}
-                                                    >
-                                                    {data.currencies[i]}
-                                                </Choice>
-                                            i++
-                                        }while(i < data.currencies.length)
-                                    }}
-                            </CurrenciesQuery>
+                           {
+                               this.props.Currencies.currencies.map( Cur => 
+                            <Choice 
+                                key={Cur} 
+                                onClick={()=> {this.props.HandleToggler();}}
+                            >
+                                {this.handleCurrSign(Cur)}
+                            </Choice>
+                            )
+                           }
                         </Choices>
+                        }
+                        {
+                        this.props.ShowCartOverlay &&
+                            <DropDown>
+                                <Titl>My Bag. {this.props.Sold.length} items</Titl>
+                                <Items>
+                                    {
+                                        this.props.Sold.map(sold =>{
+                                            
+                                        })
+                                    }
+                                </Items>
+                            </DropDown>
                         }
                     </NavBar>
                 )
@@ -116,6 +136,10 @@ export default class Navbar extends Component{
         
     }
 }
+const Items = styled.div`
+    height: 350px;
+    overflow: scroll;
+`;
 const Drop = styled.img`
     height: 100%;
 `;
@@ -210,19 +234,26 @@ const Test = styled.div`
     line-height: 16px;
 `;
 
-const Choice = styled.li`
+const Choice = styled.div`
     list-style: none;
     width: 100%;
     padding: 5px;
-    text-align: center;
     cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    text-align: center;
+    color: #1D1F22;
+    opacity: 0.7;
+    &:hover{
+        opacity: 1;
+    }
 `;
 
-const Choices = styled.ul`
-    filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
-    width: 114px;
+const Choices = styled.div`
+    width: 104px;
     position: absolute;
-    top:50px;
+    top:60px;
     right: 10%;
     display: flex;
     flex-direction: column;
@@ -230,6 +261,8 @@ const Choices = styled.ul`
     justify-content: center;
     align-content: center;
     border-radius: 5px;
+    background-color: #FFFFFF;
+    box-shadow: 1px 0px 14px 5px rgba(168, 172, 176, 0.19);
 `;
 const Title = styled.h1`
     font-weight: normal;
