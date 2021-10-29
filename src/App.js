@@ -8,17 +8,32 @@ export default class App extends Component{
   
     this.state = {
        itemsSold : [],
-       Category : ''
+       Category : '',
+       showCurrencies : false,
     }
   }
-    handleCategory=(val)=>{
-    this.setState({
+
+  handleCategory=(val)=>{
+     this.setState({
       Category : val
     })
   }
+
+  handleToggler=()=>{
+    this.setState({
+      showCurrencies : !this.state.showCurrencies
+    })
+  }
+  
+  
   render(){
     return(
-      <Navbar Sold={this.state.itemsSold}/>
+      <Navbar 
+        ShowCurrencies = {this.state.showCurrencies} 
+        HandleToggler={this.handleToggler}
+        HandleCategory={this.handleCategory} 
+        Sold={this.state.itemsSold}
+      />
     )
   }
 }

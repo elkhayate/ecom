@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import {CategoriesQuery} from "../Queries";
+import {CategoriesQuery, CurrenciesQuery} from "../Queries";
 import styled from 'styled-components';
 import Brand from "../assets/Brand.png";
 import vector2 from "../assets/Vector-2.png"
 import vector from "../assets/Vector.png"
+
+
 export default class Navbar extends Component{
     constructor(props) {
         super(props)
     
         this.state = {
-             which : "tech"
+             which : ''
         }
+    }
+    handleCategory=(val)=>{
+        this.setState({which : val});
+        this.props.HandleCategory(val) 
     }
     render(){
         return(
@@ -25,45 +31,48 @@ export default class Navbar extends Component{
                                 {
                                 this.state.which === 'clothes' 
                                 ? 
-                                <ClickedCategory onClick={()=>{this.setState({which : 'clothes'})}}>
+                                <ClickedCategory onClick={()=>{this.handleCategory(data.categories[0].name)}}>
                                     <Title>{data.categories[0].name}</Title>
                                 </ClickedCategory> 
                                 :
-                                <Category onClick={()=>{this.setState({which : 'clothes'})}}>
+                                <Category onClick={()=>{this.handleCategory(data.categories[0].name)}}>
                                     <Title>{data.categories[0].name}</Title>
                                 </Category>
                                 }
                                 {
                                 this.state.which === 'tech' 
                                 ? 
-                                <ClickedCategory onClick={()=>{this.setState({which : 'tech'})}}>
+                                <ClickedCategory onClick={()=>{this.handleCategory(data.categories[1].name)}}>
                                     <Title>{data.categories[1].name}</Title>
                                 </ClickedCategory> 
                                 :
-                                <Category onClick={()=>{this.setState({which : 'tech'})}}>
+                                <Category onClick={()=>{this.handleCategory(data.categories[1].name)}}>
                                     <Title>{data.categories[1].name}</Title>
                                 </Category>
                                 }
                                 {
                                 this.state.which === '' 
                                 ? 
-                                <ClickedCategory onClick={()=>{this.setState({which : ''})}}>
+                                <ClickedCategory onClick={()=>{this.handleCategory('')}}>
                                     <Title>all</Title>
                                 </ClickedCategory> 
                                 :
-                                <Category onClick={()=>{this.setState({which : ''})}}>
+                                <Category onClick={()=>{this.handleCategory('')}}>
                                     <Title>all</Title>
                                 </Category>
                                 }
                             </Categories>
+
                             <CartBtn>
-                            <img src = {Brand} alt = "Brand Icon"/>
+                                <img src = {Brand} alt = "Brand Icon"/>
                             </CartBtn>
+
                             <Icons>
-                                <Currencies>
+                                <Currencies onClick={()=>{this.props.HandleToggler();}}>
                                     <Usd>$</Usd>
-                                    <img style={{height:"100%"}} src={vector2} alt = "DropDown" />
+                                    <Drop src={vector2} alt = "DropDown" />
                                 </Currencies>
+
                                 <Parent onClick={()=> this.props.setShow()}>
                                     {
                                     this.props.Sold[0] 
@@ -71,9 +80,34 @@ export default class Navbar extends Component{
                                     <Test>{this.props.Sold.length}</Test>
                                     }
                                     <img  src={vector} alt="Purchases" />
+
                                 </Parent>
                             </Icons>
                         </Container>
+                        {
+                        this.props.ShowCurrencies 
+                        &&
+                        <Choices>
+                            <CurrenciesQuery>
+                                    {({data,loading,error})=>{
+                                        if (loading) return null
+                                        if (error) console.log(`Error : ${error}`)
+                                        console.log(data.currencies)
+                                        let i = 0;
+                                        do{
+                                             
+                                        return        <Choice 
+                                                    key={data.currencies[i]} 
+                                                    onClick={()=> {this.props.HandleToggler();}}
+                                                    >
+                                                    {data.currencies[i]}
+                                                </Choice>
+                                            i++
+                                        }while(i < data.currencies.length)
+                                    }}
+                            </CurrenciesQuery>
+                        </Choices>
+                        }
                     </NavBar>
                 )
             }}
@@ -82,6 +116,9 @@ export default class Navbar extends Component{
         
     }
 }
+const Drop = styled.img`
+    height: 100%;
+`;
 
 const ClickedCategory = styled.div`
     display: flex;

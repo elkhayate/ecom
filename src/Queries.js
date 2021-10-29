@@ -29,7 +29,7 @@ export function CategoryQuery(props) {
       brand
     }
   }
-}
+  }
   `;
     return props.children(useQuery(Data, {variables:{ input : {title : props.Input}}}));
 }
@@ -44,7 +44,14 @@ export function CategoriesQuery(props){
     `;
     return props.children(useQuery(Data));
 }
-
+export function CurrenciesQuery(props){
+  const Data = gql`
+  query Query {
+  currencies
+  }
+  `;
+  return props.children(useQuery(Data))
+}
 export function ProductQuery(props){
     const Data = gql`
         query Query($productId: String!) {
