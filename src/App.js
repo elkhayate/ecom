@@ -16,10 +16,12 @@ export default class App extends Component{
   handleSoldCount=(val,Id)=>{
     let listOut = this.state.itemsSold;
     for(let i = 0; i < listOut.length; i++) {
-      if(listOut[i].Pid === Id && val === 'plus') {
-        listOut[i].count += 1;
+      if(listOut[i].Pid === Id && val === 'minus' && listOut[i].count === 1) {
+        listOut.splice(listOut[i], 1)
       }else if (listOut[i].Pid === Id && val === 'minus') {
         listOut[i].count -= 1;
+      }else if (listOut[i].Pid === Id && val === 'plus'){
+        listOut[i].count += 1;
       }
     }
     this.setState({
@@ -63,7 +65,7 @@ export default class App extends Component{
             )
         }}
       </CurrenciesQuery>
-      <h1>{`hanaaa : ${this.state.itemsSold[0].count}`}</h1>
+      {this.state.itemsSold[0] ? <h1>{`hanaaa : ${this.state.itemsSold[0].count}`}</h1> : <h1>hello</h1>}
       <button onClick={()=>this.handleSoldCount('plus', 'simo')}>zid</button>
       <button onClick={()=>this.handleSoldCount('minus', 'simo')}>nqes</button>
       </div>

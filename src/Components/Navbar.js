@@ -11,14 +11,16 @@ export default class Navbar extends Component{
         super(props)
     
         this.state = {
-             which : '',
-             selectedCurr : 'USD'
+             whichCategory : '',
+             selectedCurr : 'USD',
         }
     }
+
     handleCategory=(val)=>{
-        this.setState({which : val});
+        this.setState({whichCategory : val});
         this.props.HandleCategory(val) 
     }
+
     handleCurrSign = (val) => {
         switch(val){
             case "USD": 
@@ -33,6 +35,12 @@ export default class Navbar extends Component{
             return `₽ ${val}`;
         }
     }
+    
+    handleCurrVal = (val) => {
+        this.setState({
+            selectedCurr : val,
+        })
+    }
     render(){
         return(
             <CategoriesQuery>
@@ -44,7 +52,7 @@ export default class Navbar extends Component{
                         <Container>
                             <Categories>
                                 {
-                                this.state.which === 'clothes' 
+                                this.state.whichCategory === 'clothes' 
                                 ? 
                                 <ClickedCategory onClick={()=>{this.handleCategory(data.categories[0].name)}}>
                                     <Title>{data.categories[0].name}</Title>
@@ -55,7 +63,7 @@ export default class Navbar extends Component{
                                 </Category>
                                 }
                                 {
-                                this.state.which === 'tech' 
+                                this.state.whichCategory === 'tech' 
                                 ? 
                                 <ClickedCategory onClick={()=>{this.handleCategory(data.categories[1].name)}}>
                                     <Title>{data.categories[1].name}</Title>
@@ -66,7 +74,7 @@ export default class Navbar extends Component{
                                 </Category>
                                 }
                                 {
-                                this.state.which === '' 
+                                this.state.whichCategory === '' 
                                 ? 
                                 <ClickedCategory onClick={()=>{this.handleCategory('')}}>
                                     <Title>all</Title>
@@ -98,6 +106,7 @@ export default class Navbar extends Component{
 
                                 </Parent>
                             </Icons>
+
                         </Container>
                         {
                         this.props.ShowCurrencies 
@@ -107,7 +116,7 @@ export default class Navbar extends Component{
                                this.props.Currencies.currencies.map( Cur => 
                             <Choice 
                                 key={Cur} 
-                                onClick={()=> {this.props.HandleToggler();}}
+                                onClick={()=> {this.props.HandleToggler(); this.handleCurrVal(Cur)}}
                             >
                                 {this.handleCurrSign(Cur)}
                             </Choice>
@@ -122,7 +131,7 @@ export default class Navbar extends Component{
                                 <Items>
                                     {
                                         this.props.Sold.map(sold =>{
-                                            
+
                                         })
                                     }
                                 </Items>
