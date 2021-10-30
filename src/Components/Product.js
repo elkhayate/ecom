@@ -24,7 +24,7 @@ export default class Product extends Component {
             count : this.state.Count, 
             product : this.state.Product, 
             Id : this.state.Product.id,
-            Price : parseFloat(this.props.Price.substring(1)),
+            Price : this.props.Product.prices,
         };
         this.props.HandlePurchase(newItem);
         console.log(newItem)

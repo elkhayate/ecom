@@ -25,20 +25,25 @@ export default class App extends Component{
     let sum = 0;
     if(this.state.itemsSold.length){
       for(let i = 0; i < this.state.itemsSold.length; i++) {
-        sum += this.state.itemsSold[i].Price * this.state.itemsSold[i].count;
+        switch(this.state.whichCurrency) {
+          case 'USD': 
+            sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[0].amount
+            return `$${sum.toFixed(2)}`;
+          case "GBP": 
+            sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[1].amount
+            return `£${sum.toFixed(2)}`;
+          case "AUD": 
+            sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[2].amount
+            return `$${sum.toFixed(2)}`;
+          case "JPY": 
+            sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[3].amount
+            return `¥${sum.toFixed(2)}`;
+          case "RUB": 
+            sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[4].amount
+            return `₽${sum.toFixed(2)}`;
+        }
       }
-      switch(this.state.whichCurrency) {
-        case 'USD': 
-          return `$${sum.toFixed(2)}`;
-        case "GBP": 
-          return `£${sum.toFixed(2)}`;
-        case "AUD": 
-          return `$${sum.toFixed(2)}`;
-        case "JPY": 
-          return `¥${sum.toFixed(2)}`;
-        case "RUB": 
-          return `₽${sum.toFixed(2)}`;
-      }
+      
     }
   }
 
