@@ -19,6 +19,7 @@ export default class ProLiPa extends Component {
                                 Product = {Pro}
                                 Price = {this.props.HandlePrice(Pro.prices)}
                                 Sold = {this.props.HandleSold}
+                                HandleTotal = {this.props.HandleTotal}
                             />
                         )
                     })}

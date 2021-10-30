@@ -17,19 +17,44 @@ export default class App extends Component{
        whichCurrency : 'USD',
        showDescription : false,
        whichProduct : null,
+       Total : 0,
     }
   }
+
+  handleTotal = () => {
+    let sum = 0;
+    if(this.state.itemsSold.length){
+      for(let i = 0; i < this.state.itemsSold.length; i++) {
+        sum += this.state.itemsSold[i].Price * this.state.itemsSold[i].count;
+      }
+      switch(this.state.whichCurrency) {
+        case 'USD': 
+          return `$${sum.toFixed(2)}`;
+        case "GBP": 
+          return `£${sum.toFixed(2)}`;
+        case "AUD": 
+          return `$${sum.toFixed(2)}`;
+        case "JPY": 
+          return `¥${sum.toFixed(2)}`;
+        case "RUB": 
+          return `₽${sum.toFixed(2)}`;
+      }
+    }
+  }
+
   handleDescription = (val) => {
     return this.setState({
       showDescription : true,
       whichProduct : val,
     })
   }
+
   handleSold = (val) => {
     return this.state.itemsSold.some(S => {
       return S.Ip === val.Ip
     })
   }
+
   handleSoldCount=(val,Id)=>{
     let listOut = this.state.itemsSold;
     for(let i = 0; i < listOut.length; i++) {
@@ -90,11 +115,11 @@ export default class App extends Component{
           
         }
     }
+    
     newList = [...newList, item];
-      return this.setState({
-          itemsSold : newList
-      })
-
+    return this.setState({
+        itemsSold : newList
+    })
   }
   render(){
     return(
@@ -103,9 +128,9 @@ export default class App extends Component{
         &&
         this.setState({showCurrencies : false})}}
       >
+        <h1>{this.handleTotal()}</h1>
       <CurrenciesQuery>
         {({data, loading, error})=>{
-
           if(loading) return null;
           if(error) console.log(`Error : ${error}`)
             return ( 
@@ -128,6 +153,7 @@ export default class App extends Component{
           console.log(data)
           return (
             <ProLiPa 
+              HandleTotal = {this.handleTotal}
               HandleDescription = {this.handleDescription}
               HandleSold = {this.state.itemsSold}
               HandlePurchase = {this.handlePurchase}

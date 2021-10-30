@@ -23,14 +23,17 @@ export default class Product extends Component {
             attributes : this.state.Attributes, 
             count : this.state.Count, 
             product : this.state.Product, 
-            Id : this.state.Product.id
+            Id : this.state.Product.id,
+            Price : parseFloat(this.props.Price.substring(1)),
         };
         this.props.HandlePurchase(newItem);
         console.log(newItem)
+        this.props.HandleTotal()
     }
     render(){
             return(
                 <Container 
+                    Display={this.props.Product.inStock}
                     Sold = {this.state.Sold}
                     Opacity = {this.props.Product.inStock}
                     onClick = {()=>this.props.HandleDescription(this.props.Product)}
@@ -42,7 +45,7 @@ export default class Product extends Component {
                         onClick={() => this.handleclick()}  
                         Display={this.state.Sold} 
                         src={sold} 
-                        alt = "Sold item" 
+                        alt = "Purchase" 
                     />
                     <Media>
                     <Image 
@@ -98,7 +101,7 @@ const Container = styled.div`
         opacity: ${props => props.Opacity ? "1" : "0.6"};
     }
     &:hover ${Sold} {
-        display: initial;
+        display: ${props => props.Display ? "initial" : "none"};
     }
     
 `;
