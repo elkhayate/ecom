@@ -17,6 +17,11 @@ export default class App extends Component{
        whichCurrency : 'USD',
     }
   }
+  handleSold = (val) => {
+    return this.state.itemsSold.some(S => {
+      return S.Ip === val.Ip
+    })
+  }
   handleSoldCount=(val,Id)=>{
     let listOut = this.state.itemsSold;
     for(let i = 0; i < listOut.length; i++) {
@@ -32,11 +37,13 @@ export default class App extends Component{
       itemsSold : listOut,
     })
   }
+
   handleCurrency = (val) => {
     this.setState({
       whichCurrency : val,
     })
   }
+
   handleCategory=(val)=>{
      this.setState({
       Category : val
@@ -65,7 +72,6 @@ export default class App extends Component{
   }
 
   handlePurchase = (item) => {
-    console.log("tranit")
     var newList = this.state.itemsSold;
     for(let i = 0; i < newList.length; i ++ ) {
         if(item.attributes === newList[i].attributes){
@@ -114,6 +120,7 @@ export default class App extends Component{
           console.log(data)
           return (
             <ProLiPa 
+              HandleSold = {this.state.itemsSold}
               HandlePurchase = {this.handlePurchase}
               Data={data.category} 
               Products = {data.category.products}

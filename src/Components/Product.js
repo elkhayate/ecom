@@ -11,22 +11,32 @@ export default class Product extends Component {
              Attributes : this.props.Product.attributes,
              Count : 1,
              Product : this.props.Product,
+             Sold : false,
         }
     }
     handleclick = () => {
-        let newItem = {attributes : this.state.Attributes, count : this.state.Count, product : this.state.Product};
+        let newItem = {attributes : this.state.Attributes, count : this.state.Count, product : this.state.Product, Id : this.state.Product.id};
         this.props.HandlePurchase(newItem)
         console.log(newItem)
+        if(this.props.Sold.some(P => P.Id === this.state.Product.id)) {
+            return this.setState({
+                Sold : true
+            })
+        }
     }
     render(){
             return(
                 <Container>
+                    {this.state.Sold ? <h1>sold</h1> : null}
+                    <Media>
                     <Image src={this.props.Product.gallery[0]} alt = "Product"  />
+                    </Media>
                     <Content>
                         <Title>{this.props.Product.name}</Title>
                         <Price>{this.props.Price}</Price>
+                        
                     </Content>
-                    <button onClick={()=>this.handleclick()}>simo</button>
+                    <button onClick={() => this.handleclick()}>Buy</button>
                 </Container>
             )
     }
@@ -74,11 +84,15 @@ const Title = styled.h3`
     font-size: 18px;
     line-height: 160%;
 `;
-const Image = styled.img`
-    width: 95%;
-    height: 80%;
+const Media = styled.div`
+    width: 90%;
+    height: 75%;
     margin: auto;
-    
+`;
+const Image = styled.img`
+    height: 100%;
+    width: 90%;
+    margin: auto;
 `;
 
 const Price = styled.p`
@@ -87,5 +101,5 @@ const Price = styled.p`
     line-height: 160%;
 `;
 const Content = styled.div`
-    height: 20%;
+    height: 25%;
 `;
