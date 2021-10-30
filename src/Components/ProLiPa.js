@@ -13,6 +13,7 @@ export default class ProLiPa extends Component {
                     {this.props.Products.map(Pro => {
                         return (
                             <Product
+                                HandleDescription = {this.props.HandleDescription}
                                 key = {Pro.id}
                                 HandlePurchase = {this.props.HandlePurchase} 
                                 Product = {Pro}

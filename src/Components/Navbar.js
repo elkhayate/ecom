@@ -35,6 +35,8 @@ export default class Navbar extends Component{
                 return `$ ${val}`;
             case "RUB": 
                 return `₽ ${val}`;
+            default :
+            return null;
         }
     }
 

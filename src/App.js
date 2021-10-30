@@ -15,7 +15,15 @@ export default class App extends Component{
        showCurrencies : false,
        showCartOverlay : false,
        whichCurrency : 'USD',
+       showDescription : false,
+       whichProduct : null,
     }
+  }
+  handleDescription = (val) => {
+    return this.setState({
+      showDescription : true,
+      whichProduct : val,
+    })
   }
   handleSold = (val) => {
     return this.state.itemsSold.some(S => {
@@ -120,6 +128,7 @@ export default class App extends Component{
           console.log(data)
           return (
             <ProLiPa 
+              HandleDescription = {this.handleDescription}
               HandleSold = {this.state.itemsSold}
               HandlePurchase = {this.handlePurchase}
               Data={data.category} 
