@@ -29,7 +29,7 @@ export default class ProLiPa extends Component {
 }
 const ProList = styled.div`
     padding: 40x;
-    opacity: ${props => props.Display ? "20%" : 1};
+    opacity: ${props => props.Display ? "30%" : 1};
     pointer-events: ${props => props.Display ? "none" : "auto"};
 `;
 const Container = styled.div`
