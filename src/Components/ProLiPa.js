@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import Product from './Product';
-import { ProductQuery } from '../Queries';
 
 export default class ProLiPa extends Component {
     
     render(){
         return(
-            <ProList>
+            <ProList Display={this.props.ShowCartOverlay}>
                 <Title>{this.props.Data.name}</Title>
                 <Container>
                     {this.props.Products.map(Pro => {
@@ -30,6 +29,8 @@ export default class ProLiPa extends Component {
 }
 const ProList = styled.div`
     padding: 40x;
+    opacity: ${props => props.Display ? "20%" : 1};
+    pointer-events: ${props => props.Display ? "none" : "auto"};
 `;
 const Container = styled.div`
     width: 83%;

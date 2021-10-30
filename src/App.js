@@ -20,7 +20,11 @@ export default class App extends Component{
        Total : 0,
     }
   }
-
+  handleCartOverlay = () => {
+    this.setState({
+      showCartOverlay : !this.state.showCartOverlay,
+    })
+  }
   handleTotal = () => {
     let sum = 0;
     if(this.state.itemsSold.length){
@@ -43,7 +47,19 @@ export default class App extends Component{
             return `₽${sum.toFixed(2)}`;
         }
       }
-      
+    }else {
+      switch(this.state.whichCurrency) {
+        case 'USD':       
+          return `$0`;
+        case "GBP":          
+          return `£0`;
+        case "AUD":     
+          return `$0`;
+        case "JPY":       
+          return `¥0`;
+        case "RUB": 
+          return `₽0`;
+      }
     }
   }
 
@@ -108,7 +124,20 @@ export default class App extends Component{
         return `₽${Data[4].amount}`;
     }
   }
-
+  handleCloseCurrency = () => {
+    if(this.state.showCurrencies === true) {
+      this.setState({
+        showCurrencies : false
+      });
+    }
+  }
+  handleCloseCart = () => {
+    if(this.state.showCartOverlay === true) {
+      this.setState({
+        showCartOverlay : false
+      })
+    }
+  }
   handlePurchase = (item) => {
     var newList = this.state.itemsSold;
     for(let i = 0; i < newList.length; i ++ ) {
@@ -128,19 +157,22 @@ export default class App extends Component{
   }
   render(){
     return(
-      <div onClick={ () => {
-        this.state.showCurrencies === true 
-        &&
-        this.setState({showCurrencies : false})}}
+      <div onClick={ () => 
+        {
+          this.handleCloseCart(); 
+          this.handleCloseCurrency()
+        }
+      }
       >
-        <h1>{this.handleTotal()}</h1>
       <CurrenciesQuery>
         {({data, loading, error})=>{
           if(loading) return null;
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              HandleTotal = {this.handleTotal}
               HanleCurrency = {this.handleCurrency}
+              HandleCartOverlay = {this.handleCartOverlay}
               ShowCartOverlay = {this.state.showCartOverlay}
               ShowCurrencies = {this.state.showCurrencies} 
               HandleToggler={this.handleToggler}
@@ -158,6 +190,7 @@ export default class App extends Component{
           console.log(data)
           return (
             <ProLiPa 
+              ShowCartOverlay = {this.state.showCartOverlay}
               HandleTotal = {this.handleTotal}
               HandleDescription = {this.handleDescription}
               HandleSold = {this.state.itemsSold}

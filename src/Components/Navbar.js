@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {CategoriesQuery, CurrenciesQuery} from "../Queries";
+import {CategoriesQuery} from "../Queries";
 import styled from 'styled-components';
 import Brand from "../assets/Brand.png";
 import vector2 from "../assets/Vector-2.png"
@@ -101,7 +101,7 @@ export default class Navbar extends Component{
                                     <Drop src={vector2} alt = "DropDown" />
                                 </Currencies>
 
-                                <Parent onClick={()=> this.props.setShow()}>
+                                <Parent onClick={()=> this.props.HandleCartOverlay()}>
                                     {
                                     this.props.Sold[0] 
                                     && 
@@ -135,11 +135,22 @@ export default class Navbar extends Component{
                                 <Titl>My Bag. {this.props.Sold.length} items</Titl>
                                 <Items>
                                     {
-                                        this.props.Sold.map(sold =>{
-
-                                        })
+                                        this.props.Sold.length > 0 ?
+                                            this.props.Sold.map(sold =>{
+    
+                                            }) :
+                                            <Titre>No items to show</Titre>
+                                        
                                     }
                                 </Items>
+                                <Total>
+                                    <Titre>total</Titre>
+                                    <Price>{this.props.HandleTotal()}</Price>
+                                </Total>
+                                <Buttons>
+                                    <ButtonBag>view bag</ButtonBag>
+                                    <ButtonOut>check out</ButtonOut>
+                                </Buttons>
                             </DropDown>
                         }
                     </NavBar>
@@ -150,9 +161,23 @@ export default class Navbar extends Component{
         
     }
 }
+const DropDown = styled.div`
+    position: absolute;
+    width : 325px;
+    right: 50px;
+    top: 97px;
+    z-index: 2;
+    background: #FFFFFF;
+    box-shadow: 1px 0px 14px 5px rgba(168, 172, 176, 0.19);
+`;
+
+const Parent = styled.div`
+    cursor: pointer;
+    position: relative;
+`;
 const Items = styled.div`
-    height: 350px;
-    overflow: scroll;
+    height: 100%;
+    overflow: auto;
 `;
 const Drop = styled.img`
     height: 100%;
@@ -179,7 +204,7 @@ const Titre = styled.h2`
     line-height: 18px;
     text-transform: capitalize;
 `;
-const Button = styled.button`
+const ButtonOut = styled.button`
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -191,6 +216,33 @@ const Button = styled.button`
     font-size: 13px;
     line-height: 120%;
     text-transform: uppercase;
+    color : #FFFFFF;
+    background-color: #5ECE7B;
+    border: none;
+    opacity : 0.9;
+    &:hover {
+        opacity : 1;
+    }
+`;
+const ButtonBag = styled.button`
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    width: 145px;
+    height: 43px;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 120%;
+    text-transform: uppercase;
+    color : #1D1F22;
+    background-color: #FFFFFF;
+    border: 1px solid #1D1F22;
+    opacity : 0.9;
+    &:hover {
+        opacity : 1;
+    }
 `;
 const Buttons = styled.div`
     width: 95%;
@@ -198,7 +250,7 @@ const Buttons = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px;
+    padding-bottom: 10px;
 `;
 
 const Total = styled.div`
@@ -218,19 +270,7 @@ const Titl = styled.h2`
     padding: 5px;
 `;
 
-const DropDown = styled.div`
-    position: absolute;
-    width : 325px;
-    right: 50px;
-    top: 97px;
-    z-index: 2;
-    background: #FFFFFF;
-`;
 
-const Parent = styled.div`
-    cursor: pointer;
-    position: relative;
-`;
 const Test = styled.div`
     position: absolute;
     right: -10px;
