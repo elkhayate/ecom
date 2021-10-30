@@ -21,6 +21,7 @@ export default class Navbar extends Component{
             whichCategory : val
         });
         this.props.HandleCategory(val); 
+        this.props.HandleCloseDescription();
     }
 
     handleCurrSign = (val) => {
@@ -350,6 +351,7 @@ const NavBar = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-bottom: 50px;
 `;
 
 const Category = styled.div`

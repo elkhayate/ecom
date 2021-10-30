@@ -19,16 +19,17 @@ export default class Product extends Component {
         return null;
       }
     handleclick = () => {
-        let newItem = {
-            attributes : this.state.Attributes, 
-            count : this.state.Count, 
-            product : this.state.Product, 
-            Id : this.state.Product.id,
-            Price : this.props.Product.prices,
-        };
-        this.props.HandlePurchase(newItem);
-        console.log(newItem)
-        this.props.HandleTotal()
+        if(this.props.Product.attributes.length === 0) {
+            let newItem = {
+                count : this.state.Count, 
+                product : this.state.Product, 
+                Id : this.state.Product.id,
+                Price : this.props.Product.prices,
+            }
+            this.props.HandlePurchase(newItem);
+        }else {
+            this.props.HandleDescription(this.props.Product)
+        }
     }
     render(){
             return(
@@ -111,13 +112,14 @@ const Title = styled.h3`
     line-height: 160%;
 `;
 const Media = styled.div`
-    width: 90%;
+    width: 100%;
     height: 75%;
     margin: auto;
     text-align: center;
 `;
 const Image = styled.img`
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 `;
 
 const Price = styled.p`

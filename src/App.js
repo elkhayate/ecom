@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './Components/Navbar';
 import ProLiPa from './Components/ProLiPa';
 import { CategoryQuery, CurrenciesQuery } from './Queries';
-
+import ProDesPa from './Components/ProDesPa';
 
 
 export default class App extends Component{
@@ -155,6 +155,11 @@ export default class App extends Component{
         itemsSold : newList
     })
   }
+  handleCloseDescription = () => {
+    this.setState({
+      showDescription : false, 
+    })
+  }
   render(){
     return(
       <div onClick={ () => 
@@ -170,6 +175,7 @@ export default class App extends Component{
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              HandleCloseDescription = {this.handleCloseDescription}
               HandleTotal = {this.handleTotal}
               HanleCurrency = {this.handleCurrency}
               HandleCartOverlay = {this.handleCartOverlay}
@@ -183,6 +189,15 @@ export default class App extends Component{
             )
         }}
       </CurrenciesQuery>
+    {
+      this.state.showDescription ? 
+      <ProDesPa 
+        Product = {this.state.whichProduct}
+        HandlePrice = {this.handlePrice}
+        HandlePurchase = {this.handlePurchase}
+      />
+
+      :
       <CategoryQuery Input={this.state.Category}>
         {({data, loading, error})=>{
           if(loading) return null;
@@ -202,6 +217,7 @@ export default class App extends Component{
           )
         }}
       </CategoryQuery>
+      }
       </div>
     )
   }
