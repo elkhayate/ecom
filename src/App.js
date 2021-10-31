@@ -45,6 +45,8 @@ export default class App extends Component{
           case "RUB": 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[4].amount
             return `₽${sum.toFixed(2)}`;
+          default :
+            return null
         }
       }
     }else {
@@ -59,6 +61,8 @@ export default class App extends Component{
           return `¥0`;
         case "RUB": 
           return `₽0`;
+        default :
+          return null
       }
     }
   }
@@ -122,6 +126,8 @@ export default class App extends Component{
         return `¥${Data[3].amount}`;
       case "RUB": 
         return `₽${Data[4].amount}`;
+      default :
+      return null
     }
   }
   handleCloseCurrency = () => {
@@ -139,21 +145,21 @@ export default class App extends Component{
     }
   }
   handlePurchase = (item) => {
+    console.log(item)
     var newList = this.state.itemsSold;
     for(let i = 0; i < newList.length; i ++ ) {
-        if(item.attributes === newList[i].attributes){
+        if(item.attributes === newList[i].attributes && item.Product === newList[i].Product){
           newList[i].count += 1;
           return this.setState({
             itemsSold : newList
           })
-          
         }
     }
-    
     newList = [...newList, item];
     return this.setState({
-        itemsSold : newList
+          itemsSold : newList 
     })
+    
   }
   handleCloseDescription = () => {
     this.setState({
@@ -162,19 +168,15 @@ export default class App extends Component{
   }
   render(){
     return(
-      <div onClick={ () => 
-        {
-          this.handleCloseCart(); 
-          this.handleCloseCurrency()
-        }
-      }
-      >
+      <>
       <CurrenciesQuery>
         {({data, loading, error})=>{
           if(loading) return null;
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              CloseCurrency = {this.handleCloseCurrency}
+              CloseCart = {this.handleCloseCart}
               HandleCloseDescription = {this.handleCloseDescription}
               HandleTotal = {this.handleTotal}
               HanleCurrency = {this.handleCurrency}
@@ -189,6 +191,12 @@ export default class App extends Component{
             )
         }}
       </CurrenciesQuery>
+      <div onClick={ () => 
+        {
+          this.handleCloseCart(); 
+          this.handleCloseCurrency()
+        }
+      }>
     {
       this.state.showDescription ? 
       <ProDesPa 
@@ -219,6 +227,7 @@ export default class App extends Component{
       </CategoryQuery>
       }
       </div>
+      </>
     )
   }
 }

@@ -60,33 +60,57 @@ export default class Navbar extends Component{
                                 {
                                 this.state.whichCategory === 'clothes' 
                                 ? 
-                                <ClickedCategory onClick={()=>{this.handleCategory(data.categories[0].name)}}>
+                                <ClickedCategory onClick={()=>{
+                                    this.handleCategory(data.categories[0].name);
+                                    this.props.CloseCurrency();
+                                    this.props.CloseCart();
+                                    }}>
                                     <Title>{data.categories[0].name}</Title>
                                 </ClickedCategory> 
                                 :
-                                <Category onClick={()=>{this.handleCategory(data.categories[0].name)}}>
+                                <Category onClick={()=>{
+                                    this.handleCategory(data.categories[0].name);
+                                    this.props.CloseCurrency();
+                                    this.props.CloseCart();
+                                    }}>
                                     <Title>{data.categories[0].name}</Title>
                                 </Category>
                                 }
                                 {
                                 this.state.whichCategory === 'tech' 
                                 ? 
-                                <ClickedCategory onClick={()=>{this.handleCategory(data.categories[1].name)}}>
+                                <ClickedCategory onClick={()=>{
+                                    this.handleCategory(data.categories[1].name);
+                                    this.props.CloseCurrency();
+                                    this.props.CloseCart();
+                                    }}>
                                     <Title>{data.categories[1].name}</Title>
                                 </ClickedCategory> 
                                 :
-                                <Category onClick={()=>{this.handleCategory(data.categories[1].name)}}>
+                                <Category onClick={()=>{
+                                    this.handleCategory(data.categories[1].name);
+                                    this.props.CloseCurrency();
+                                    this.props.CloseCart();
+                                    }}>
                                     <Title>{data.categories[1].name}</Title>
                                 </Category>
                                 }
                                 {
                                 this.state.whichCategory === '' 
                                 ? 
-                                <ClickedCategory onClick={()=>{this.handleCategory('')}}>
+                                <ClickedCategory onClick={()=>{
+                                    this.handleCategory('');
+                                    this.props.CloseCurrency();
+                                    this.props.CloseCart();
+                                    }}>
                                     <Title>all</Title>
                                 </ClickedCategory> 
                                 :
-                                <Category onClick={()=>{this.handleCategory('')}}>
+                                <Category onClick={()=>{
+                                    this.handleCategory('');
+                                    this.props.CloseCurrency();
+                                    this.props.CloseCart();
+                                    }}>
                                     <Title>all</Title>
                                 </Category>
                                 }
@@ -97,12 +121,18 @@ export default class Navbar extends Component{
                             </CartBtn>
 
                             <Icons>
-                                <Currencies onClick={()=>{this.props.HandleToggler();}}>
+                                <Currencies onClick={()=>{
+                                    this.props.HandleToggler(); 
+                                    this.props.CloseCart()
+                                    }}>
                                     <Usd>$</Usd>
                                     <Drop src={vector2} alt = "DropDown" />
                                 </Currencies>
 
-                                <Parent onClick={()=> this.props.HandleCartOverlay()}>
+                                <Parent onClick={()=> {
+                                        this.props.HandleCartOverlay();
+                                        this.props.CloseCurrency()
+                                    }}>
                                     {
                                     this.props.Sold[0] 
                                     && 
@@ -122,7 +152,10 @@ export default class Navbar extends Component{
                                this.props.Currencies.currencies.map( Cur => 
                             <Choice 
                                 key={Cur} 
-                                onClick={()=> {this.props.HandleToggler(); this.handleCurrVal(Cur)}}
+                                onClick={()=> {
+                                    this.props.HandleToggler(); 
+                                    this.handleCurrVal(Cur)
+                                }}
                             >
                                 {this.handleCurrSign(Cur)}
                             </Choice>
@@ -137,8 +170,8 @@ export default class Navbar extends Component{
                                 <Items>
                                     {
                                         this.props.Sold.length > 0 ?
-                                            this.props.Sold.map(sold =>{
-    
+                                            this.props.Sold.map(sold => {
+                                                
                                             }) :
                                             <Titre>No items to show</Titre>
                                         
