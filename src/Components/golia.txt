@@ -1,2 +1,2 @@
-check wesh key kayna si oui bdel hadak object b lakher jdid
-ila makaynash zid object
+check if product kayen w if same attributes zid count
+if not zid
