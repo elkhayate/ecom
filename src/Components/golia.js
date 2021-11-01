@@ -1,4 +1,16 @@
-let At2 = Object;
-
-At2['simo'] = 1
-console.log(At2)
+let simo = {"wahed" : 1, "jouj" : 2};
+let bimo = {"jouj" : 2,"wahed" : 1};
+const shallowEqual = function (object1, object2) {
+    const keys1 = Object.keys(object1);
+    const keys2 = Object.keys(object2);
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+    for (let key of keys1) {
+      if (object1[key] !== object2[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
+console.log(shallowEqual(simo, bimo))

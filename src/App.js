@@ -162,7 +162,7 @@ export default class App extends Component{
       }else {
         for(let i = 0; i < newList.length; i ++) {
           if (newList[i].Id === item.Id
-             && JSON.stringify(newList[i].Attributes.sort()) == JSON.stringify(item.Attributes.sort()) 
+             && shallowEqual(newList[i].Attributes, item.Attributes) 
              && i === newList.length -1 ){
             newList[i].count++;
             this.setState({
@@ -271,4 +271,17 @@ export default class App extends Component{
       </div>
     )
   }
+}
+const shallowEqual = function (object1, object2) {
+  const keys1 = Object.keys(object1);
+  const keys2 = Object.keys(object2);
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  for (let key of keys1) {
+    if (object1[key] !== object2[key]) {
+      return false;
+    }
+  }
+  return true;
 }

@@ -9,7 +9,7 @@ export default class ProDesPa extends Component {
         this.state = {
             whichImg : this.props.Product.gallery[0],
             Count : 1,
-            Attributes : [],
+            Attributes : {},
             showAlert : false,
         }
     }
@@ -19,24 +19,10 @@ export default class ProDesPa extends Component {
             whichImg : val,
         })
     }
-    
+
     handleAttributes =(attname, attval)=>{
-        let newItem = {};
-        newItem[attname] = attval;
         let OutList = this.state.Attributes;
-        if(OutList.length === 0) {
-            OutList = [...OutList, newItem]
-        }else {
-            var exist = OutList.filter(function(o){
-                return o.hasOwnProperty(attname);
-            }).length > 0;
-            if(exist){
-                OutList = OutList.filter(val => val[attname] === undefined)
-                OutList = [...OutList, newItem]
-            }else {
-                OutList = [...OutList, newItem]
-            }
-        }
+        OutList[attname] = attval;
         this.setState({
             Attributes : OutList
         }) 
@@ -51,7 +37,8 @@ export default class ProDesPa extends Component {
             Id : this.props.Product.id,
             Photo : this.props.Product.gallery[0]
         }
-        if(newItem.Attributes.length === this.props.Product.attributes.length) {
+
+        if(objectSize(newItem.Attributes) === this.props.Product.attributes.length) {
             this.props.HandlePurchase(newItem);
             this.setState({
                 showAlert : false,
@@ -144,6 +131,14 @@ export default class ProDesPa extends Component {
             </Container>
         )
     }
+}
+const objectSize = function(obj){
+    var size = 0,
+        key;
+    for(key in obj){
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size
 }
 const OutofStock = styled.h3`
     font-weight: normal;
