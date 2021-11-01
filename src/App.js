@@ -3,7 +3,7 @@ import Navbar from './Components/Navbar';
 import ProLiPa from './Components/ProLiPa';
 import { CategoryQuery, CurrenciesQuery } from './Queries';
 import ProDesPa from './Components/ProDesPa';
-
+import Cart from './Components/Cart';
 
 export default class App extends Component{
   constructor(props) {
@@ -14,8 +14,9 @@ export default class App extends Component{
        Category : '',
        showCurrencies : false,
        showCartOverlay : false,
-       whichCurrency : 'USD',
+       showCart : false,
        showDescription : false,
+       whichCurrency : 'USD',
        whichProduct : null,
        Total : null,
     }
@@ -112,7 +113,11 @@ export default class App extends Component{
       showCurrencies : !this.state.showCurrencies
     })
   }
-  
+  handleShowCart = (val) => {
+    this.setState({
+      showCart : val
+    })
+  }
   handlePrice = (Data) => {
     switch(this.state.whichCurrency) {
       case 'USD': 
@@ -166,7 +171,7 @@ export default class App extends Component{
             break;
           }else if (newList[i].Id === item.Id 
             && i === newList.length -1
-            && JSON.stringify(newList[i].Attributes.sort()) != JSON.stringify(item.Attributes.sort())){
+           ){
             newList = [...newList, item];
             this.setState({
               itemsSold : newList,
@@ -202,6 +207,8 @@ export default class App extends Component{
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              ShowCart = {this.state.showCart}
+              HandleShowCart = {this.handleShowCart}              
               CloseCurrency = {this.handleCloseCurrency}
               CloseCart = {this.handleCloseCart}
               HandleCloseDescription = {this.handleCloseDescription}
@@ -225,8 +232,12 @@ export default class App extends Component{
           this.handleCloseCurrency()
         }
       }>
-    {
-      this.state.showDescription ? 
+        {this.state.showCart ?
+        <Cart 
+          ShowCartOverlay = {this.state.showCartOverlay}
+        />
+        :
+      (this.state.showDescription ? 
       <ProDesPa 
         ShowCartOverlay = {this.state.showCartOverlay}
         Product = {this.state.whichProduct}
@@ -235,7 +246,6 @@ export default class App extends Component{
         HandleTotal = {this.handleTotal}
         Sold = {this.state.itemsSold}
       />
-
       :
       <CategoryQuery Input={this.state.Category}>
         {({data, loading, error})=>{
@@ -255,7 +265,8 @@ export default class App extends Component{
           )
         }}
       </CategoryQuery>
-      }
+      )
+    }
       </div>
       </div>
     )

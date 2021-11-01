@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-
+import styled from 'styled-components';
 
 export default class Cart extends Component {
     render() {
         return (
-            <Container>
+            <Container Display={this.props.ShowCartOverlay}>
                 <Title>cart</Title>
             </Container>
         )
@@ -16,6 +16,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    opacity: ${props => props.Display ? "30%" : 1};
+    pointer-events: ${props => props.Display ? "none" : "auto"};
 `;
 
 const Title = styled.h1`

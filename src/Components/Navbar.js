@@ -64,6 +64,7 @@ export default class Navbar extends Component{
                                     this.handleCategory(data.categories[0].name);
                                     this.props.CloseCurrency();
                                     this.props.CloseCart();
+                                    this.props.HandleShowCart(false)
                                     }}>
                                     <Title>{data.categories[0].name}</Title>
                                 </ClickedCategory> 
@@ -72,6 +73,7 @@ export default class Navbar extends Component{
                                     this.handleCategory(data.categories[0].name);
                                     this.props.CloseCurrency();
                                     this.props.CloseCart();
+                                    this.props.HandleShowCart(false)
                                     }}>
                                     <Title>{data.categories[0].name}</Title>
                                 </Category>
@@ -83,6 +85,7 @@ export default class Navbar extends Component{
                                     this.handleCategory(data.categories[1].name);
                                     this.props.CloseCurrency();
                                     this.props.CloseCart();
+                                    this.props.HandleShowCart(false)
                                     }}>
                                     <Title>{data.categories[1].name}</Title>
                                 </ClickedCategory> 
@@ -91,6 +94,7 @@ export default class Navbar extends Component{
                                     this.handleCategory(data.categories[1].name);
                                     this.props.CloseCurrency();
                                     this.props.CloseCart();
+                                    this.props.HandleShowCart(false)
                                     }}>
                                     <Title>{data.categories[1].name}</Title>
                                 </Category>
@@ -102,6 +106,7 @@ export default class Navbar extends Component{
                                     this.handleCategory('');
                                     this.props.CloseCurrency();
                                     this.props.CloseCart();
+                                    this.props.HandleShowCart(false)
                                     }}>
                                     <Title>all</Title>
                                 </ClickedCategory> 
@@ -110,6 +115,7 @@ export default class Navbar extends Component{
                                     this.handleCategory('');
                                     this.props.CloseCurrency();
                                     this.props.CloseCart();
+                                    this.props.HandleShowCart(false)
                                     }}>
                                     <Title>all</Title>
                                 </Category>
@@ -182,8 +188,13 @@ export default class Navbar extends Component{
                                     <Price>{this.props.Total}</Price>
                                 </Total>
                                 <Buttons>
-                                    <ButtonBag>view bag</ButtonBag>
-                                    <ButtonOut>check out</ButtonOut>
+                                    <ButtonBag onClick={()=>{
+                                        this.props.HandleShowCart(true); 
+                                        this.props.CloseCart();}}
+                                    >view bag</ButtonBag>
+                                    <ButtonOut onClick={()=>
+                                        this.props.CloseCart()}
+                                    >check out</ButtonOut>
                                 </Buttons>
                             </DropDown>
                         }
