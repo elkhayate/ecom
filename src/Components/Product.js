@@ -30,6 +30,7 @@ export default class Product extends Component {
         }else {
             this.props.HandleDescription(this.props.Product)
         }
+        this.props.HandleTotal(this.props.HandleSold)
     }
     render(){
             return(

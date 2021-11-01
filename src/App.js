@@ -17,8 +17,9 @@ export default class App extends Component{
        whichCurrency : 'USD',
        showDescription : false,
        whichProduct : null,
-       Total : 0,
+       Total : null,
     }
+    this.handleTotal()
   }
   handleCartOverlay = () => {
     this.setState({
@@ -27,45 +28,43 @@ export default class App extends Component{
   }
   handleTotal = () => {
     let sum = 0;
-    if(this.state.itemsSold.length){
-      for(let i = 0; i < this.state.itemsSold.length; i++) {
+    for(let i = 0; i < this.state.itemsSold.length; i++) {
         switch(this.state.whichCurrency) {
           case 'USD': 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[0].amount
-            return `$${sum.toFixed(2)}`;
+            this.setState({
+              Total : `$${sum.toFixed(2)}`
+            })
+            break;
           case "GBP": 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[1].amount
-            return `£${sum.toFixed(2)}`;
+            this.setState({
+              Total : `£${sum.toFixed(2)}`
+            })
+            break;
           case "AUD": 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[2].amount
-            return `$${sum.toFixed(2)}`;
+            this.setState({
+              Total : `$${sum.toFixed(2)}`
+            })
+            break;
           case "JPY": 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[3].amount
-            return `¥${sum.toFixed(2)}`;
+            this.setState({
+              Total : `¥${sum.toFixed(2)}`
+            })
+            break;
           case "RUB": 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[4].amount
-            return `₽${sum.toFixed(2)}`;
-          default :
-            return null
+            this.setState({
+              Total : `₽${sum.toFixed(2)}`
+            })
+            break;
+          default:
+            console.log("p")
         }
       }
-    }else {
-      switch(this.state.whichCurrency) {
-        case 'USD':       
-          return `$0`;
-        case "GBP":          
-          return `£0`;
-        case "AUD":     
-          return `$0`;
-        case "JPY":       
-          return `¥0`;
-        case "RUB": 
-          return `₽0`;
-        default :
-          return null
       }
-    }
-  }
 
   handleDescription = (val) => {
     return this.setState({
@@ -144,31 +143,30 @@ export default class App extends Component{
       })
     }
   }
+
+
   handlePurchase = (item) => {
     console.log(item)
     var newList = this.state.itemsSold;
-    for(let i = 0; i < newList.length; i ++ ) {
-        if(item.attributes === newList[i].attributes && item.Product === newList[i].Product){
-          newList[i].count += 1;
-          return this.setState({
-            itemsSold : newList
-          })
-        }
-    }
     newList = [...newList, item];
-    return this.setState({
-          itemsSold : newList 
+    this.setState({
+      itemsSold : newList
     })
-    
   }
+
+
   handleCloseDescription = () => {
     this.setState({
       showDescription : false, 
     })
   }
+
+
   render(){
     return(
-      <>
+      <div onClick={
+        ()=>this.handleTotal()
+      }>
       <CurrenciesQuery>
         {({data, loading, error})=>{
           if(loading) return null;
@@ -179,6 +177,7 @@ export default class App extends Component{
               CloseCart = {this.handleCloseCart}
               HandleCloseDescription = {this.handleCloseDescription}
               HandleTotal = {this.handleTotal}
+              Total = {this.state.Total}
               HanleCurrency = {this.handleCurrency}
               HandleCartOverlay = {this.handleCartOverlay}
               ShowCartOverlay = {this.state.showCartOverlay}
@@ -203,6 +202,8 @@ export default class App extends Component{
         Product = {this.state.whichProduct}
         HandlePrice = {this.handlePrice}
         HandlePurchase = {this.handlePurchase}
+        HandleTotal = {this.handleTotal}
+        Sold = {this.state.itemsSold}
       />
 
       :
@@ -227,7 +228,10 @@ export default class App extends Component{
       </CategoryQuery>
       }
       </div>
-      </>
+      </div>
     )
   }
+}
+const arraysAreEqual = function(ary1,ary2){
+  return (ary1.join('') == ary2.join(''));
 }

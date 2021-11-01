@@ -22,33 +22,23 @@ export default class ProDesPa extends Component {
     handleAttributes =(attname, attval)=>{
         let newItem = {};
         newItem[attname] = attval;
-        console.log(newItem)
-        console.log(this.state.Attributes)
         let OutList = this.state.Attributes;
         if(OutList.length === 0) {
-            console.log("added first")
-            return this.setState({
-                Attributes : [...OutList, newItem]
-            });
-        }else{
-            for(let i = 0; i < OutList.length; i++) {
-                if (String(attname) in OutList[i]) {
-                    console.log("checked if key exist")
-                    OutList[i] = newItem;
-                    return this.setState({
-                        Attributes : OutList
-                    });
-                }else if (OutList[i] != newItem){
-                    console.log("item don't exist")
-                    OutList = [...OutList, newItem]
-                    return this.setState({
-                        Attributes : OutList,
-                    });
-                }
-                
+            OutList = [...OutList, newItem]
+        }else {
+            var exist = OutList.filter(function(o){
+                return o.hasOwnProperty(attname);
+            }).length > 0;
+            if(exist){
+                OutList = OutList.filter(val => val[attname] === undefined)
+                OutList = [...OutList, newItem]
+            }else {
+                OutList = [...OutList, newItem]
             }
-    }
-        
+        }
+        this.setState({
+            Attributes : OutList
+        }) 
     }
     handlePurchase = () => {
         let newItem = {
@@ -59,6 +49,7 @@ export default class ProDesPa extends Component {
         }
         if(newItem.Attributes.length === this.props.Product.attributes.length) {
             this.props.HandlePurchase(newItem);
+            this.props.HandleTotal(this.props.Sold)
             this.setState({
                 showAlert : false,
                 Attributes : []
@@ -70,6 +61,7 @@ export default class ProDesPa extends Component {
                 Attributes : []
             })
         }
+        return this.props.HandleTotal(this.props.Sold)
         
     }
     render(){

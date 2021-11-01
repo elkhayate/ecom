@@ -179,7 +179,7 @@ export default class Navbar extends Component{
                                 </Items>
                                 <Total>
                                     <Titre>total</Titre>
-                                    <Price>{this.props.HandleTotal()}</Price>
+                                    <Price>{this.props.Total}</Price>
                                 </Total>
                                 <Buttons>
                                     <ButtonBag>view bag</ButtonBag>
