@@ -19,6 +19,7 @@ export default class ProDesPa extends Component {
             whichImg : val,
         })
     }
+    
     handleAttributes =(attname, attval)=>{
         let newItem = {};
         newItem[attname] = attval;
@@ -40,6 +41,7 @@ export default class ProDesPa extends Component {
             Attributes : OutList
         }) 
     }
+
     handlePurchase = () => {
         let newItem = {
             Product : this.props.Product,
@@ -68,7 +70,7 @@ export default class ProDesPa extends Component {
         const Product = this.props.Product;
         const sanitzer = DOMPurify.sanitize;
         return(
-            <Container>
+            <Container Display={this.props.ShowCartOverlay}>
                 <Images>
                     {
                         Product.gallery.map(Img => {
@@ -124,17 +126,31 @@ export default class ProDesPa extends Component {
                             <PriceName>Price :</PriceName>
                             <PriceVal>{this.props.HandlePrice(Product.prices)}</PriceVal>
                         </Price>
-                        <Button onClick={() => this.handlePurchase()}>add to cart</Button>
+                        {
+                            !Product.inStock 
+                        && 
+                            <OutofStock>(Sorry Item Out of Stock)</OutofStock>
+                        }
+                        <Button 
+                            disabled={!Product.inStock} 
+                            Display={!Product.inStock} 
+                            onClick={() => this.handlePurchase()}
+                        >add to cart</Button>
                         <Description dangerouslySetInnerHTML={{
                             __html : sanitzer(Product.description)
                         }} />
-                        <h1>{this.state.Attributes.length}</h1>
                     </Details>
                 </Content>
             </Container>
         )
     }
 }
+const OutofStock = styled.h3`
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 27px;
+    opacity: 0.8;
+`;
 const Alert = styled.h3`
     color : red;
     font-weight: normal;
@@ -155,15 +171,13 @@ const Button = styled.button`
     font-size: 16px;
     line-height: 120%;
     color: #FFFFFF;
-    cursor: pointer;
-    &:hover{
-        opacity: 0.6;
-    }
+    cursor: ${props => props.Display ? "not-allowed" : "pointer"};
+    opacity: ${props => props.Display ? "0.2" : "1"};
+    margin-bottom: 20px;
 `;
 const Description = styled.div`
     font-weight: normal;
     font-size: 16px;
-    line-height: 159.96%;
 `;
 const Price = styled.div`
     height: 10%;
@@ -249,6 +263,8 @@ const Container = styled.div`
     align-content: center;
     align-items: stretch;
     height: 100%;
+    opacity: ${props => props.Display ? "30%" : 1};
+    pointer-events: ${props => props.Display ? "none" : "auto"};
 `;
 const Imgs = styled.div`
     height: 80px;

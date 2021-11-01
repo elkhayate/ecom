@@ -4,9 +4,7 @@ import ProLiPa from './Components/ProLiPa';
 import { CategoryQuery, CurrenciesQuery } from './Queries';
 import ProDesPa from './Components/ProDesPa';
 
-const checkArrays = function(arr1,arr2){
-  return arr1.every((val)=> arr2.includes(val));
-}
+
 export default class App extends Component{
   constructor(props) {
     super(props)
@@ -158,13 +156,17 @@ export default class App extends Component{
         })
       }else {
         for(let i = 0; i < newList.length; i ++) {
-          if (newList[i].Id === item.Id && JSON.stringify(newList[i].Attributes.sort()) == JSON.stringify(item.Attributes.sort())){
+          if (newList[i].Id === item.Id
+             && JSON.stringify(newList[i].Attributes.sort()) == JSON.stringify(item.Attributes.sort()) 
+             && i === newList.length -1 ){
             newList[i].count++;
             this.setState({
               itemsSold : newList
             })
             break;
-          }else if (newList[i].Id === item.Id && JSON.stringify(newList[i].Attributes.sort()) != JSON.stringify(item.Attributes.sort())){
+          }else if (newList[i].Id === item.Id 
+            && i === newList.length -1
+            && JSON.stringify(newList[i].Attributes.sort()) != JSON.stringify(item.Attributes.sort())){
             newList = [...newList, item];
             this.setState({
               itemsSold : newList,
@@ -226,6 +228,7 @@ export default class App extends Component{
     {
       this.state.showDescription ? 
       <ProDesPa 
+        ShowCartOverlay = {this.state.showCartOverlay}
         Product = {this.state.whichProduct}
         HandlePrice = {this.handlePrice}
         HandlePurchase = {this.handlePurchase}
