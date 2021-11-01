@@ -46,10 +46,11 @@ export default class ProDesPa extends Component {
             Attributes : this.state.Attributes,
             count : this.state.Count,
             Price : this.props.Product.prices,
+            Id : this.props.Product.id,
+            Photo : this.props.Product.gallery[0]
         }
         if(newItem.Attributes.length === this.props.Product.attributes.length) {
             this.props.HandlePurchase(newItem);
-            this.props.HandleTotal(this.props.Sold)
             this.setState({
                 showAlert : false,
                 Attributes : []
@@ -61,7 +62,6 @@ export default class ProDesPa extends Component {
                 Attributes : []
             })
         }
-        return this.props.HandleTotal(this.props.Sold)
         
     }
     render(){
@@ -231,6 +231,7 @@ const AttributeName = styled.p`
     }
 `;
 const SwatchAttribute = styled.div`
+    border: 1px solid #1D1F22;
     height: 25px;
     width: 25px;
     padding: 5px;

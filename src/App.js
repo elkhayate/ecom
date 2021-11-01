@@ -4,7 +4,9 @@ import ProLiPa from './Components/ProLiPa';
 import { CategoryQuery, CurrenciesQuery } from './Queries';
 import ProDesPa from './Components/ProDesPa';
 
-
+const checkArrays = function(arr1,arr2){
+  return arr1.every((val)=> arr2.includes(val));
+}
 export default class App extends Component{
   constructor(props) {
     super(props)
@@ -148,10 +150,35 @@ export default class App extends Component{
   handlePurchase = (item) => {
     console.log(item)
     var newList = this.state.itemsSold;
-    newList = [...newList, item];
-    this.setState({
-      itemsSold : newList
-    })
+    if(newList.length !== 0){
+      if(newList.every(val => val.Id !== item.Id)){
+        newList = [...newList, item];
+        this.setState({
+          itemsSold : newList,
+        })
+      }else {
+        for(let i = 0; i < newList.length; i ++) {
+          if (newList[i].Id === item.Id && JSON.stringify(newList[i].Attributes.sort()) == JSON.stringify(item.Attributes.sort())){
+            newList[i].count++;
+            this.setState({
+              itemsSold : newList
+            })
+            break;
+          }else if (newList[i].Id === item.Id && JSON.stringify(newList[i].Attributes.sort()) != JSON.stringify(item.Attributes.sort())){
+            newList = [...newList, item];
+            this.setState({
+              itemsSold : newList,
+            })
+            break
+          }
+        }
+      }
+    }else{
+      newList = [...newList, item];
+      this.setState({
+        itemsSold : newList,
+      })
+    }
   }
 
 
@@ -210,8 +237,7 @@ export default class App extends Component{
       <CategoryQuery Input={this.state.Category}>
         {({data, loading, error})=>{
           if(loading) return null;
-          if(error) console.log(`Error : ${error}`)
-          console.log(data)
+          if(error) console.log(`Error : ${error}`);
           return (
             <ProLiPa 
               ShowCartOverlay = {this.state.showCartOverlay}
@@ -231,7 +257,4 @@ export default class App extends Component{
       </div>
     )
   }
-}
-const arraysAreEqual = function(ary1,ary2){
-  return (ary1.join('') == ary2.join(''));
 }

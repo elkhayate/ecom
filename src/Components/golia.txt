@@ -1,2 +1,0 @@
-check if product kayen w if same attributes zid count
-if not zid
