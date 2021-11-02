@@ -80,14 +80,14 @@ export default class App extends Component{
     })
   }
 
-  handleSoldCount=(val,Id)=>{
+  handleSoldCount=(val,P)=>{
     let listOut = this.state.itemsSold;
     for(let i = 0; i < listOut.length; i++) {
-      if(listOut[i].Pid === Id && val === 'minus' && listOut[i].count === 1) {
+      if(listOut[i].Id === P.Id && val === 'minus'  && shallowEqual(listOut[i].Attributes, P.Attributes) && listOut[i].count === 1) {
         listOut.splice(listOut[i], 1)
-      }else if (listOut[i].Pid === Id && val === 'minus') {
+      }else if (listOut[i].Id === P.Id && val === 'minus' && shallowEqual(listOut[i].Attributes, P.Attributes)) {
         listOut[i].count -= 1;
-      }else if (listOut[i].Pid === Id && val === 'plus'){
+      }else if (listOut[i].Id === P.Id && val === 'plus' && shallowEqual(listOut[i].Attributes, P.Attributes)){
         listOut[i].count += 1;
       }
     }
@@ -233,6 +233,7 @@ export default class App extends Component{
       }>
         {this.state.showCart ?
         <Cart 
+          HandleSold = {this.handleSoldCount}
           ShowCartOverlay = {this.state.showCartOverlay}
           ItemsSold = {this.state.itemsSold}
           HandlePrice = {this.handlePrice}

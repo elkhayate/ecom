@@ -8,9 +8,34 @@ export default class CartItem extends Component {
         this.state = {
             keys : Object.keys(this.props.Product.Attributes),
             values : Object.values(this.props.Product.Attributes),
+            gallery : this.props.Product.Product.gallery,
+            count : 0,
+            test : true
         }
     }
-    
+    handleRight = () => {
+        if(this.state.count < this.state.gallery.length - 1){
+            this.setState({
+                count : this.state.count + 1
+            })} else{
+                this.setState({count : 0})
+            }
+          
+    }
+    handleLeft = () => {
+        if(this.state.count <= 0){
+            this.setState({
+                count : this.state.gallery.length - 1
+            })} else{
+                this.setState({
+                    count : this.state.count - 1
+                })
+            }
+          
+    }
+    static getDerivedStateFromProps(props) {
+        return {keys: Object.keys(props.Product.Attributes), values : Object.values(props.Product.Attributes)};
+      }
     render() {
         const Product = this.props.Product;
         return(
@@ -25,7 +50,7 @@ export default class CartItem extends Component {
                         <AttributeNames>
                             {
                                 this.state.keys.map(k => 
-                                    <Attribute>{`${k} :`}</Attribute>
+                                <Attribute key={k} >{`${k} :`}</Attribute>
                                     )
                             }
                         </AttributeNames>
@@ -51,14 +76,28 @@ export default class CartItem extends Component {
                 </Content>
                 <Media>
                         <Counter>
-                            <Tcount>+</Tcount>
+                            <Tcount onClick={
+                                 () => {this.props.HandleSold('plus', Product); this.setState({test : !this.state.test}) }
+                            }>+</Tcount>
                             <Count>{Product.count}</Count>
-                            <Tcount>-</Tcount>
+                            <Tcount onClick={
+                                () => {this.props.HandleSold('minus', Product); this.setState({test : !this.state.test}) }
+                            }>-</Tcount>
                         </Counter>
                         <Images>
-                            <Bleft>{`<`}</Bleft>
-                            <Image src={Product.Photo} />
-                            <Bright>{`>`}</Bright>
+                            { Product.Product.gallery.length > 1 
+                            &&
+                                <Bleft onClick={
+                                    () => this.handleLeft()
+                                }>{`<`}</Bleft>
+                            }
+                            <Image src={Product.Product.gallery[this.state.count]} alt='pictures'/>
+                            { Product.Product.gallery.length > 1 
+                            &&
+                                <Bright onClick={
+                                    () => this.handleRight()
+                                }>{`>`}</Bright>
+                            }
                         </Images>
                 </Media>
             </Container>
@@ -67,13 +106,16 @@ export default class CartItem extends Component {
 }
 const Bright = styled.p`
     position:absolute;
-    margin-left: 170px;
-    margin-top: -115px;
+    right: 10px;
+    top: 50%;
+    cursor: pointer;
+   
 `;
 const Bleft = styled.p`
     position: absolute;
-    margin-top: 100px;
-    margin-left: 5px;
+    left: 10px;
+    top: 50%;
+    cursor: pointer;
 `;
 const Container = styled.div`
     display: flex;
@@ -85,10 +127,9 @@ const Content = styled.div`
     width: 50%;
 `;
 const Image = styled.img`
-    width: 140px;
-    height: 180px;
+    width: 85%;
     padding: 15px;
-    position: relative;
+    height: 85%;
 `;
 const Header = styled.div`
     
@@ -152,7 +193,12 @@ const Counter = styled.div`
 `;
 const Images = styled.div`
     width: 30%;
-    height: 100%;
+    height: 230px;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    align-items: center;
+    position: relative;
 `;
 const Tcount = styled.p`
     border: 1px solid #1D1F22;

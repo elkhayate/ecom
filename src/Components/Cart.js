@@ -1,7 +1,20 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import CartItem from './CartItem';
+import { v4 as uuidv4 } from 'uuid';
+
 export default class Cart extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+            Product : this.props.ItemsSold,
+        }
+    }
+    static getDerivedStateFromProps(props) {
+        return {Product: props.ItemsSold };
+      }
+
     render() {
         return (
             <Container Display={this.props.ShowCartOverlay}>
@@ -11,7 +24,8 @@ export default class Cart extends Component {
                         return <CartItem 
                             HandlePrice = {this.props.HandlePrice}
                             Product = {item} 
-                            key = {item.id} 
+                            key = {uuidv4()} 
+                            HandleSold = {this.props.HandleSold}
                         />
                     })
                 }
