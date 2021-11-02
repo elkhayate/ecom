@@ -98,10 +98,14 @@ export default class ProDesPa extends Component {
                                             <SwatchAttribute
                                                 onClick={()=>this.handleAttributes(Att.name, Atva.value)} 
                                                 key = {Atva.id} 
-                                                style={{background : Atva.value}}/> :
+                                                style={{background : Atva.value}}
+                                                Display={this.state.Attributes[Att.name] === Atva.value}
+                                                /> :
                                                 <AttributeName 
                                                     onClick={()=>this.handleAttributes(Att.name, Atva.value)}
-                                                    key = {Atva.id}>
+                                                    key = {Atva.id}
+                                                    Display={this.state.Attributes[Att.name] === Atva.value}
+                                                    >
                                                         {Atva.value}
                                                 </AttributeName>
                                         })
@@ -236,6 +240,7 @@ const AttributeName = styled.p`
     display: flex;
     align-items: center;
     cursor: pointer;
+    opacity: ${props => props.Display ? "0.4" : "1"};
     &:hover {
         opacity: 0.6;
     }
@@ -247,6 +252,7 @@ const SwatchAttribute = styled.div`
     padding: 5px;
     margin: 5px;
     cursor: pointer;
+    opacity: ${props => props.Display ? "0.4" : "1"};
     &:hover {
         opacity: 0.6;
     }

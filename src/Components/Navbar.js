@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Brand from "../assets/Brand.png";
 import vector2 from "../assets/Vector-2.png"
 import vector from "../assets/Vector.png"
-
+import MiniCart from "./MiniCart";
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Navbar extends Component{
     constructor(props) {
@@ -13,6 +14,7 @@ export default class Navbar extends Component{
         this.state = {
              whichCategory : '',
              selectedCurr : 'USD',
+             Product : this.props.ItemsSold,
         }
     }
 
@@ -174,14 +176,19 @@ export default class Navbar extends Component{
                             <DropDown>
                                 <Titl>My Bag. {this.props.Sold.length} items</Titl>
                                 <Items>
-                                    {
-                                        this.props.Sold.length > 0 ?
-                                            this.props.Sold.map(sold => {
-                                                
-                                            }) :
-                                            <Titre>No items to show</Titre>
-                                        
-                                    }
+                                {
+                                    this.props.Sold.map((item) => {
+                                        return <MiniCart 
+                                                HandlePrice = {this.props.HandlePrice}
+                                                product = {item} 
+                                                Product = {item.Product}
+                                                Attributes = {item.Attributes}
+                                                Photos = {item.Product.gallery}
+                                                key = {uuidv4()} 
+                                                HandleSold = {this.props.HandleSold}
+                                            />
+                                    })
+                                }
                                 </Items>
                                 <Total>
                                     <Titre>total</Titre>

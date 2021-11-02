@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid';
 
-export default class CartItem extends Component {
+export default class MiniCart extends Component {
     constructor(props) {
         super(props)
     

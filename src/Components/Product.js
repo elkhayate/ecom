@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import sold from "../assets/Sold_icon.png"
+import { v4 as uuidv4 } from 'uuid';
 
 
 export default class Product extends Component {
@@ -26,7 +27,8 @@ export default class Product extends Component {
                 Product : this.state.Product,
                 Id : this.state.Product.id,
                 Price : this.props.Product.prices,
-                Attributes : {}
+                Attributes : {},
+                id : uuidv4(),
             }
             this.props.HandlePurchase(newItem);
         }else {

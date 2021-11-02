@@ -13,7 +13,7 @@ export default class Cart extends Component {
     }
     static getDerivedStateFromProps(props) {
         return {Product: props.ItemsSold };
-      }
+    }
 
     render() {
         return (

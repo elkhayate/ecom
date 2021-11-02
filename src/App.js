@@ -206,6 +206,7 @@ export default class App extends Component{
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              HandleSold = {this.handleSoldCount}
               ShowCart = {this.state.showCart}
               HandleShowCart = {this.handleShowCart}              
               CloseCurrency = {this.handleCloseCurrency}
@@ -221,6 +222,7 @@ export default class App extends Component{
               HandleCategory={this.handleCategory} 
               Sold={this.state.itemsSold}
               Currencies = {data}
+              HandlePrice = {this.handlePrice}
             />
             )
         }}
