@@ -14,3 +14,4 @@ const shallowEqual = function (object1, object2) {
     return true;
   }
 console.log(shallowEqual(simo, bimo))
+
