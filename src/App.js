@@ -83,11 +83,11 @@ export default class App extends Component{
   handleSoldCount=(val,P)=>{
     let listOut = this.state.itemsSold;
     for(let i = 0; i < listOut.length; i++) {
-      if(listOut[i].Id === P.Id && val === 'minus'  && shallowEqual(listOut[i].Attributes, P.Attributes) && listOut[i].count === 1) {
-        listOut.splice(listOut[i], 1)
-      }else if (listOut[i].Id === P.Id && val === 'minus' && shallowEqual(listOut[i].Attributes, P.Attributes)) {
+      if(listOut[i].id === P.id && val === 'minus'  && listOut[i].count === 1) {
+        listOut.splice(i, 1)
+      }else if (listOut[i].id === P.id && val === 'minus' ) {
         listOut[i].count -= 1;
-      }else if (listOut[i].Id === P.Id && val === 'plus' && shallowEqual(listOut[i].Attributes, P.Attributes)){
+      }else if (listOut[i].id === P.id && val === 'plus'){
         listOut[i].count += 1;
       }
     }

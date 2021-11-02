@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import DOMPurify from 'dompurify'
 import styled from 'styled-components'
+import { v4 as uuidv4 } from 'uuid';
 
 export default class ProDesPa extends Component {
     constructor(props) {
@@ -35,7 +36,8 @@ export default class ProDesPa extends Component {
             count : this.state.Count,
             Price : this.props.Product.prices,
             Id : this.props.Product.id,
-            Photo : this.props.Product.gallery[0]
+            Photo : this.props.Product.gallery[0],
+            id : uuidv4(),
         }
         if(objectSize(newItem.Attributes) === this.props.Product.attributes.length) {
             this.props.HandlePurchase(newItem);
