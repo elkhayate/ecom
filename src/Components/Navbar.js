@@ -56,7 +56,9 @@ export default class Navbar extends Component{
                 if(loading) return <h1>Loading...</h1>
                 if(error) console.log(`Error : ${error}`)
                 return(
-                    <NavBar>
+                    <NavBar onClick={
+                        ()=> this.props.HandleTotal()
+                    }>
                         <Container>
                             <Categories>
                                 {
@@ -228,8 +230,8 @@ const Parent = styled.div`
     position: relative;
 `;
 const Items = styled.div`
-    height: 100%;
-    overflow: auto;
+    height: 250px;
+    overflow-y: auto;
 `;
 const Drop = styled.img`
     height: 100%;

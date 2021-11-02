@@ -112,14 +112,14 @@ export default class MiniCart extends Component {
 }
 const Bright = styled.p`
     position:absolute;
-    right: 5px;
+    right: 0px;
     top: 40%;
     cursor: pointer;
    
 `;
 const Bleft = styled.p`
     position: absolute;
-    left: 5px;
+    left: 0px;
     top: 40%;
     cursor: pointer;
 `;
@@ -127,32 +127,32 @@ const Container = styled.div`
     display: flex;
     border-top: 1px solid #f5f5f5;
     border-bottom: 1px solid #f5f5f5;
-    padding: 3px;
+    padding: 2px;
 `;
 const Content = styled.div`
     width: 50%;
 `;
 const Image = styled.img`
-    width: 85%;
-    padding: 15px;
-    height: 85%;
+    width: 95%;
+    padding: 5px;
+    height: 95%;
 `;
 const Header = styled.div`
     
 `;
 const Title = styled.h1`
     font-weight: 600;
-    font-size: 30px;
-    line-height: 27px;
+    font-size: 16px;
+    line-height:16px;
 `;
 const Brand = styled.h2`
     font-weight: normal;
-    font-size: 30px;
-    line-height: 27px;
+    font-size: 14px;
+    line-height: 14px;
 `;
 const Price = styled.p`
-    font-size: 24px;
-    line-height: 18px;
+    font-size: 12px;
+    line-height: 15px;
 `;
 const Attributes = styled.div`
     display : flex;
@@ -160,27 +160,30 @@ const Attributes = styled.div`
 `;
 
 const Attribute = styled.p`
+  font-size: 8px;
+  line-height: 13px;
+  letter-spacing: 0.05em;
 `;
 
 const AttributeName = styled.p`
     font-weight: normal;
-    font-size: 11px;
-    line-height: 18px;
+    font-size: 8px;
+    line-height: 13px;
     letter-spacing: 0.05em;
     padding: 5px;
     border: 1px solid #1D1F22;
-    margin: 5px;
-    height: 20px;
+    margin: 2px;
+    height: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
 `;
 const SwatchAttribute = styled.div`
     border: 1px solid #1D1F22;
-    height: 25px;
-    width: 25px;
+    height: 8px;
+    width: 8px;
     padding: 5px;
-    margin: 5px;
+    margin: 2px;
     
 `;
 const AttributeNames = styled.div``
@@ -198,8 +201,8 @@ const Counter = styled.div`
     text-align: center;
 `;
 const Images = styled.div`
-    width: 30%;
-    height: 230px;
+    width: 90%;
+    height: 150px;
     display: flex;
     justify-content: flex-end;
     align-content: center;
@@ -208,8 +211,8 @@ const Images = styled.div`
 `;
 const Tcount = styled.p`
     border: 1px solid #1D1F22;
-    padding: 10px;
-    font-size: 15px;
+    padding: 5px;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
     &:hover {
@@ -219,6 +222,6 @@ const Tcount = styled.p`
 const Count = styled.p`
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
-    line-height: 160%;
+    font-size: 16px;
+    line-height: 90%;
 `;

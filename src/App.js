@@ -29,7 +29,8 @@ export default class App extends Component{
   }
   handleTotal = () => {
     let sum = 0;
-    for(let i = 0; i < this.state.itemsSold.length; i++) {
+    if(this.state.itemsSold.length !== 0){
+      for(let i = 0; i < this.state.itemsSold.length; i++) {
         switch(this.state.whichCurrency) {
           case 'USD': 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[0].amount
@@ -65,7 +66,12 @@ export default class App extends Component{
             console.log("p")
         }
       }
-      }
+    }else{
+      this.setState({
+        Total : ""
+      })
+    }
+  }
 
   handleDescription = (val) => {
     return this.setState({
