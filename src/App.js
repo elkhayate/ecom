@@ -274,16 +274,29 @@ export default class App extends Component{
     )
   }
 }
-const shallowEqual = function (object1, object2) {
-  const keys1 = Object.keys(object1);
-  const keys2 = Object.keys(object2);
-  if (keys1.length !== keys2.length) {
-    return false;
+
+const objectSize = function(obj){
+  var size = 0,
+      key;
+  for(key in obj){
+      if (obj.hasOwnProperty(key)) size++;
   }
-  for (let key of keys1) {
-    if (object1[key] !== object2[key]) {
+  return size
+}
+const shallowEqual = function (object1, object2) {
+  if(objectSize(object1) !== 0){
+    const keys1 = Object.keys(object1);
+    const keys2 = Object.keys(object2);
+    if (keys1.length !== keys2.length) {
       return false;
     }
+    for (let key of keys1) {
+      if (object1[key] !== object2[key]) {
+        return false;
+      }
+    }
+    return true;
+  }else{
+    return false
   }
-  return true;
 }

@@ -20,10 +20,13 @@ export default class Cart extends Component {
             <Container Display={this.props.ShowCartOverlay}>
                 <Title>cart</Title>
                 {
-                    this.props.ItemsSold.map((item) => {
+                    this.state.Product.map((item) => {
                         return <CartItem 
                             HandlePrice = {this.props.HandlePrice}
-                            Product = {item} 
+                            product = {item} 
+                            Product = {item.Product}
+                            Attributes = {item.Attributes}
+                            Photos = {item.Product.gallery}
                             key = {uuidv4()} 
                             HandleSold = {this.props.HandleSold}
                         />

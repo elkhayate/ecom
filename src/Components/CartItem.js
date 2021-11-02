@@ -6,9 +6,9 @@ export default class CartItem extends Component {
         super(props)
     
         this.state = {
-            keys : Object.keys(this.props.Product.Attributes),
-            values : Object.values(this.props.Product.Attributes),
-            gallery : this.props.Product.Product.gallery,
+            keys : Object.keys(this.props.product.Attributes),
+            values : Object.values(this.props.product.Attributes),
+            gallery : this.props.Photos,
             count : 0,
             test : true
         }
@@ -34,18 +34,19 @@ export default class CartItem extends Component {
           
     }
     static getDerivedStateFromProps(props) {
-        return {keys: Object.keys(props.Product.Attributes), values : Object.values(props.Product.Attributes)};
+        return {keys: Object.keys(props.product.Attributes), values : Object.values(props.product.Attributes)};
       }
     render() {
         const Product = this.props.Product;
+        const product = this.props.product;
         return(
             <Container>
                 <Content>
                     <Header>
-                        <Title>{Product.Product.name}</Title>
-                        <Brand>{Product.Product.brand}</Brand>
+                        <Title>{Product.name}</Title>
+                        <Brand>{Product.brand}</Brand>
                     </Header>
-                    <Price>{this.props.HandlePrice(Product.Product.prices)}</Price>
+                    <Price>{this.props.HandlePrice(Product.prices)}</Price>
                     <Attributes>
                         <AttributeNames>
                             {
@@ -77,22 +78,22 @@ export default class CartItem extends Component {
                 <Media>
                         <Counter>
                             <Tcount onClick={
-                                 () => {this.props.HandleSold('plus', Product); this.setState({test : !this.state.test}) }
+                                 () => {this.props.HandleSold('plus', product); this.setState({test : !this.state.test}) }
                             }>+</Tcount>
-                            <Count>{Product.count}</Count>
+                            <Count>{product.count}</Count>
                             <Tcount onClick={
-                                () => {this.props.HandleSold('minus', Product); this.setState({test : !this.state.test}) }
+                                () => {this.props.HandleSold('minus', product); this.setState({test : !this.state.test}) }
                             }>-</Tcount>
                         </Counter>
                         <Images>
-                            { Product.Product.gallery.length > 1 
+                            { this.state.gallery.length > 1 
                             &&
                                 <Bleft onClick={
                                     () => this.handleLeft()
                                 }>{`<`}</Bleft>
                             }
-                            <Image src={Product.Product.gallery[this.state.count]} alt='pictures'/>
-                            { Product.Product.gallery.length > 1 
+                            <Image src={this.state.gallery[this.state.count]} alt='pictures'/>
+                            { this.state.gallery.length > 1 
                             &&
                                 <Bright onClick={
                                     () => this.handleRight()

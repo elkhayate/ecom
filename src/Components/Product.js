@@ -23,8 +23,10 @@ export default class Product extends Component {
             let newItem = {
                 count : this.state.Count, 
                 product : this.state.Product, 
+                Product : this.state.Product,
                 Id : this.state.Product.id,
                 Price : this.props.Product.prices,
+                Attributes : {}
             }
             this.props.HandlePurchase(newItem);
         }else {
