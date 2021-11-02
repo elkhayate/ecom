@@ -37,7 +37,6 @@ export default class ProDesPa extends Component {
             Id : this.props.Product.id,
             Photo : this.props.Product.gallery[0]
         }
-
         if(objectSize(newItem.Attributes) === this.props.Product.attributes.length) {
             this.props.HandlePurchase(newItem);
             this.setState({

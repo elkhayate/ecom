@@ -122,7 +122,7 @@ export default class Navbar extends Component{
                                 }
                             </Categories>
 
-                            <CartBtn>
+                            <CartBtn onClick={()=>this.props.HandleShowCart(true)}>
                                 <img src = {Brand} alt = "Brand Icon"/>
                             </CartBtn>
 

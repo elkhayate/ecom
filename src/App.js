@@ -162,8 +162,7 @@ export default class App extends Component{
       }else {
         for(let i = 0; i < newList.length; i ++) {
           if (newList[i].Id === item.Id
-             && shallowEqual(newList[i].Attributes, item.Attributes) 
-             && i === newList.length -1 ){
+             && shallowEqual(newList[i].Attributes, item.Attributes)){
             newList[i].count++;
             this.setState({
               itemsSold : newList
@@ -235,6 +234,8 @@ export default class App extends Component{
         {this.state.showCart ?
         <Cart 
           ShowCartOverlay = {this.state.showCartOverlay}
+          ItemsSold = {this.state.itemsSold}
+          HandlePrice = {this.handlePrice}
         />
         :
       (this.state.showDescription ? 
