@@ -14,7 +14,8 @@ export default class CartItem extends Component {
             test : true
         }
     }
-    handleRight = () => {
+    handleRight = (e) => {
+        e.stopPropagation()
         const {count} = this.state
         if(count < this.state.gallery.length - 1){
             this.setState(prev=>({
@@ -24,7 +25,8 @@ export default class CartItem extends Component {
             }
           
     }
-    handleLeft = () => {
+    handleLeft = (e) => {
+        e.stopPropagation()
         const {count} = this.state
         if(count <= 0){
             this.setState({

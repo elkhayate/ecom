@@ -14,7 +14,7 @@ export default class Navbar extends Component{
         this.state = {
              whichCategory : '',
              selectedCurr : 'USD',
-             Product : this.props.ItemsSold,
+             Product : this.props.ItemsSold,    
         }
     }
 
@@ -49,6 +49,9 @@ export default class Navbar extends Component{
         });
         this.props.HanleCurrency(val);
     }
+    handleClose = (e) => {
+        e.stopPropagation()
+    }
     render(){
         return(
             <CategoriesQuery>
@@ -57,7 +60,11 @@ export default class Navbar extends Component{
                 if(error) console.log(`Error : ${error}`)
                 return(
                     <NavBar onClick={
-                        ()=> this.props.HandleTotal()
+                        ()=> {
+                            this.props.HandleTotal();
+                            this.props.CloseCart()
+                            this.props.CloseCurrency()
+                            }
                     }>
                         <Container>
                             <Categories>
@@ -157,7 +164,7 @@ export default class Navbar extends Component{
                         {
                         this.props.ShowCurrencies 
                         &&
-                        <Choices>
+                        <Choices onClick={this.handleClose}>
                            {
                                this.props.Currencies.currencies.map( Cur => 
                             <Choice 
@@ -175,7 +182,7 @@ export default class Navbar extends Component{
                         }
                         {
                         this.props.ShowCartOverlay &&
-                            <DropDown>
+                            <DropDown onClick={this.handleClose}>
                                 <Titl>My Bag. {this.props.Sold.length} items</Titl>
                                 <Items>
                                 {

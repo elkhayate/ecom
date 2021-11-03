@@ -22,6 +22,7 @@ export default class App extends Component{
     }
     this.handleTotal()
   }
+  
   handleCartOverlay = () => {
     this.setState({
       showCartOverlay : !this.state.showCartOverlay,
@@ -221,7 +222,8 @@ export default class App extends Component{
   render(){
     return(
       <div onClick={
-        ()=>this.handleTotal()
+        ()=>{this.handleCloseCurrency(); this.handleTotal(); this.handleCloseCart();}
+
       }>
       <CurrenciesQuery>
         {({data, loading, error})=>{
