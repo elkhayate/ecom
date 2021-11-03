@@ -188,6 +188,7 @@ export default class Navbar extends Component{
                                                 Photos = {item.Product.gallery}
                                                 key = {uuidv4()} 
                                                 HandleSold = {this.props.HandleSold}
+                                                HandleItemTotal = {this.props.HandleItemTotal}
                                             />
                                     })
                                 }

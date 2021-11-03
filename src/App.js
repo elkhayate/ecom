@@ -27,6 +27,23 @@ export default class App extends Component{
       showCartOverlay : !this.state.showCartOverlay,
     })
   }
+  handleItemTotal = (prices, count) => {
+    switch(this.state.whichCurrency) {
+      case 'USD': 
+        return `$${(prices[0].amount * count).toFixed(2)}`;
+      case "GBP": 
+        return `£${(prices[1].amount * count).toFixed(2)}`;
+      case "AUD": 
+        return `A$${(prices[2].amount * count).toFixed(2)}`;
+      case "JPY": 
+        return `¥${(prices[3].amount * count).toFixed(2)}`;
+      case "RUB": 
+        return `₽${(prices[4].amount * count).toFixed(2)}`;
+      default :
+      return null
+    }
+
+  }
   handleTotal = () => {
     let sum = 0;
     if(this.state.itemsSold.length !== 0){
@@ -47,7 +64,7 @@ export default class App extends Component{
           case "AUD": 
             sum += this.state.itemsSold[i].count * this.state.itemsSold[i].Price[2].amount
             this.setState({
-              Total : `$${sum.toFixed(2)}`
+              Total : `A$${sum.toFixed(2)}`
             })
             break;
           case "JPY": 
@@ -131,7 +148,7 @@ export default class App extends Component{
       case "GBP": 
         return `£${Data[1].amount}`;
       case "AUD": 
-        return `$${Data[2].amount}`;
+        return `A$${Data[2].amount}`;
       case "JPY": 
         return `¥${Data[3].amount}`;
       case "RUB": 
@@ -212,6 +229,7 @@ export default class App extends Component{
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              HandleItemTotal = {this.handleItemTotal}
               HandleSold = {this.handleSoldCount}
               ShowCart = {this.state.showCart}
               HandleShowCart = {this.handleShowCart}              
@@ -241,6 +259,7 @@ export default class App extends Component{
       }>
         {this.state.showCart ?
         <Cart 
+          HandleItemTotal = {this.handleItemTotal}
           HandleSold = {this.handleSoldCount}
           ShowCartOverlay = {this.state.showCartOverlay}
           ItemsSold = {this.state.itemsSold}

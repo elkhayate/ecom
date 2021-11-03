@@ -19,7 +19,8 @@ export default class Product extends Component {
         if(props.Sold.some(P => P.Id === state.Product.id)) return {Sold: true }
         return null;
       }
-    handleclick = () => {
+    handleclick = (e) => {
+        e.stopPropagation()
         if(this.props.Product.attributes.length === 0) {
             let newItem = {
                 count : this.state.Count, 
@@ -48,7 +49,7 @@ export default class Product extends Component {
                         Display={this.props.Product.inStock}
                     >out of stock</Stock>
                     <Sold 
-                        onClick={() => this.handleclick()}  
+                        onClick={this.handleclick}  
                         Display={this.state.Sold} 
                         src={sold} 
                         alt = "Purchase" 
@@ -61,13 +62,18 @@ export default class Product extends Component {
                     </Media>
                     <Content>
                         <Title>{this.props.Product.name}</Title>
+                        <Brand>{this.props.Product.brand}</Brand>
                         <Price>{this.props.Price}</Price>
                     </Content>
                 </Container>
             )
     }
 }
-
+const Brand = styled.h4`
+    font-weight: 300;
+    font-size: 19px;
+    line-height: 80%;
+`;
 const Sold = styled.img`
     opacity: ${props => props.Display ? "1" : 0.8};
     position: absolute;
@@ -92,13 +98,13 @@ const Stock = styled.h1`
     display: ${props => props.Display ? "none" : "initial"};
 `;
 const Container = styled.div`
-    height: 386px;
-    width: 30%;
+    height: 456px;
+    width: 28%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     cursor: pointer;
-    padding: 15px;
+    padding: 16px;
     position: relative;
     box-shadow: ${props => props.Sold ? "0px 4px 35px rgba(168, 172, 176, 0.19)" : null };
     opacity: ${props => props.Opacity ? "0.9" : "0.6"};
@@ -113,8 +119,8 @@ const Container = styled.div`
 `;
 const Title = styled.h3`
     font-weight: 300;
-    font-size: 18px;
-    line-height: 160%;
+    font-size: 20px;
+    line-height: 90%;
 `;
 const Media = styled.div`
     width: 100%;
@@ -123,14 +129,14 @@ const Media = styled.div`
     text-align: center;
 `;
 const Image = styled.img`
-    max-width: 100%;
-    max-height: 100%;
+    object-fit: cover;
+    height: 100%;
 `;
 
 const Price = styled.p`
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 160%;
+    font-weight: 800;
+    font-size: 15px;
+    line-height: 50%;
 `;
 const Content = styled.div`
     height: 25%;

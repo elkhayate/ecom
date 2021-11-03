@@ -17,11 +17,9 @@ export default class CartItem extends Component {
     handleRight = () => {
         const {count} = this.state
         if(count < this.state.gallery.length - 1){
-            console.log("plus")
             this.setState(prev=>({
                 count : prev.count + 1
             }))} else{
-                console.log("requested a plus but max so go back to zero")
                 this.setState({count : 0})
             }
           
@@ -29,11 +27,9 @@ export default class CartItem extends Component {
     handleLeft = () => {
         const {count} = this.state
         if(count <= 0){
-            console.log("sir lkher")
             this.setState({
                 count : this.state.gallery.length - 1
             })} else{
-                console.log("minus")
                 this.setState(prev=>({
                     count : prev.count - 1
                 }))
@@ -51,7 +47,7 @@ export default class CartItem extends Component {
                         <Title>{Product.name}</Title>
                         <Brand>{Product.brand}</Brand>
                     </Header>
-                    <Price>{this.props.HandlePrice(Product.prices)}</Price>
+                    <Price>{this.props.HandleItemTotal(Product.prices, product.count)}</Price>
                     <Attributes>
                         <AttributeNames>
                             {
@@ -93,16 +89,12 @@ export default class CartItem extends Component {
                         <Images>
                             { this.state.gallery.length > 1 
                             &&
-                                <Bleft onClick={
-                                    () => this.handleLeft()
-                                }>{`<`}</Bleft>
+                                <Bleft onClick={this.handleLeft}>{`<`}</Bleft>
                             }
                             <Image src={this.state.gallery[this.state.count]} alt='pictures'/>
                             { this.state.gallery.length > 1 
                             &&
-                                <Bright onClick={
-                                    () => this.handleRight()
-                                }>{`>`}</Bright>
+                                <Bright onClick={this.handleRight}>{`>`}</Bright>
                             }
                         </Images>
                 </Media>

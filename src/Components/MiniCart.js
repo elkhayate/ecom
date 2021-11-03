@@ -17,11 +17,9 @@ export default class MiniCart extends Component {
     handleRight = () => {
         const {count} = this.state
         if(count < this.state.gallery.length - 1){
-            console.log("plus")
             this.setState(prev=>({
                 count : prev.count + 1
             }))} else{
-                console.log("requested a plus but max so go back to zero")
                 this.setState({count : 0})
             }
           
@@ -29,11 +27,9 @@ export default class MiniCart extends Component {
     handleLeft = () => {
         const {count} = this.state
         if(count <= 0){
-            console.log("sir lkher")
             this.setState({
                 count : this.state.gallery.length - 1
             })} else{
-                console.log("minus")
                 this.setState(prev=>({
                     count : prev.count - 1
                 }))
@@ -51,7 +47,7 @@ export default class MiniCart extends Component {
                         <Title>{Product.name}</Title>
                         <Brand>{Product.brand}</Brand>
                     </Header>
-                    <Price>{this.props.HandlePrice(Product.prices)}</Price>
+                    <Price>{this.props.HandleItemTotal(Product.prices, product.count)}</Price>
                     <Attributes>
                         <AttributeNames>
                             {
@@ -133,9 +129,9 @@ const Content = styled.div`
     width: 50%;
 `;
 const Image = styled.img`
-    width: 95%;
-    padding: 5px;
-    height: 95%;
+    
+    height: 100%;
+    max-width: 90%;
 `;
 const Header = styled.div`
     
@@ -160,19 +156,19 @@ const Attributes = styled.div`
 `;
 
 const Attribute = styled.p`
-  font-size: 8px;
-  line-height: 13px;
+  font-size: 13px;
+  line-height: 10px;
   letter-spacing: 0.05em;
 `;
 
 const AttributeName = styled.p`
     font-weight: normal;
-    font-size: 8px;
-    line-height: 13px;
+    font-size: 13px;
+    line-height: 10px;
     letter-spacing: 0.05em;
     padding: 5px;
     border: 1px solid #1D1F22;
-    margin: 2px;
+    margin-bottom: 5px;
     height: 8px;
     display: flex;
     align-items: center;
@@ -186,8 +182,20 @@ const SwatchAttribute = styled.div`
     margin: 2px;
     
 `;
-const AttributeNames = styled.div``
-const AttributChoice = styled.div``;
+const AttributeNames = styled.div`
+    height: 100%;
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+`;
+const AttributChoice = styled.div`
+    height: 100%;
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
 const Media = styled.div`
     display: flex;
     justify-content: flex-end;
@@ -201,8 +209,8 @@ const Counter = styled.div`
     text-align: center;
 `;
 const Images = styled.div`
-    width: 90%;
-    height: 150px;
+    width: 85%;
+    height: 90%;
     display: flex;
     justify-content: flex-end;
     align-content: center;

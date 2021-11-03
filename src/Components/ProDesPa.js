@@ -297,7 +297,7 @@ const ImgDisplay = styled.div`
     width: 60%;
 `;
 const Img = styled.img`
-    width: 100%;
+    object-fit: cover;
     height: 100%;
 `;
 const Details = styled.div`

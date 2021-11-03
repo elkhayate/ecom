@@ -22,6 +22,7 @@ export default class Cart extends Component {
                 {
                     this.state.Product.map((item) => {
                         return <CartItem 
+                            HandleItemTotal = {this.props.HandleItemTotal}
                             HandlePrice = {this.props.HandlePrice}
                             product = {item} 
                             Product = {item.Product}
