@@ -25,7 +25,22 @@ export default class Navbar extends Component{
         this.props.HandleCategory(val); 
         this.props.HandleCloseDescription();
     }
-
+    handleToggDisplay = (val) => {
+        switch(val){
+            case "USD": 
+                return `$`;
+            case "JPY": 
+                return `¥`;
+            case "GBP": 
+                return `£`;
+            case "AUD": 
+                return `$`;
+            case "RUB": 
+                return `₽`;
+            default :
+            return null;
+        }
+    }
     handleCurrSign = (val) => {
         switch(val){
             case "USD": 
@@ -52,6 +67,7 @@ export default class Navbar extends Component{
     handleClose = (e) => {
         e.stopPropagation()
     }
+
     render(){
         return(
             <CategoriesQuery>
@@ -64,7 +80,7 @@ export default class Navbar extends Component{
                             this.props.HandleTotal();
                             this.props.CloseCart()
                             this.props.CloseCurrency()
-                            }
+                        }
                     }>
                         <Container>
                             <Categories>
@@ -142,7 +158,7 @@ export default class Navbar extends Component{
                                     this.props.HandleToggler(); 
                                     this.props.CloseCart()
                                     }}>
-                                    <Usd>$</Usd>
+                                    <Usd>{this.handleToggDisplay(this.props.WhichCurrency)}</Usd>
                                     <Drop src={vector2} alt = "DropDown" />
                                 </Currencies>
 
@@ -196,6 +212,7 @@ export default class Navbar extends Component{
                                                 key = {uuidv4()} 
                                                 HandleSold = {this.props.HandleSold}
                                                 HandleItemTotal = {this.props.HandleItemTotal}
+                                                HandleTotal = {this.props.HandleTotal}
                                             />
                                     })
                                 }

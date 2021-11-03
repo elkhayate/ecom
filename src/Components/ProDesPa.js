@@ -240,7 +240,8 @@ const AttributeName = styled.p`
     display: flex;
     align-items: center;
     cursor: pointer;
-    opacity: ${props => props.Display ? "0.4" : "1"};
+    color: ${props => props.Display ? "white" : "black"};
+    background-color: ${props => props.Display ? "black" : ""};
     &:hover {
         opacity: 0.6;
     }
@@ -298,7 +299,7 @@ const ImgDisplay = styled.div`
 `;
 const Img = styled.img`
     object-fit: cover;
-    height: 100%;
+   width: 100%;
 `;
 const Details = styled.div`
     width: 40%;

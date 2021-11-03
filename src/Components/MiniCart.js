@@ -11,7 +11,6 @@ export default class MiniCart extends Component {
             values : Object.values(this.props.product.Attributes),
             gallery : this.props.Photos,
             count : 0,
-            test : true
         }
     }
     handleRight = () => {
@@ -79,11 +78,11 @@ export default class MiniCart extends Component {
                 <Media>
                         <Counter>
                             <Tcount onClick={
-                                 () => {this.props.HandleSold('plus', product); this.setState({test : !this.state.test}) }
+                                 () => {this.props.HandleSold('plus', product); this.props.HandleTotal()}
                             }>+</Tcount>
                             <Count>{product.count}</Count>
                             <Tcount onClick={
-                                () => {this.props.HandleSold('minus', product); this.setState({test : !this.state.test}) }
+                                () => {this.props.HandleSold('minus', product); this.props.HandleTotal()}
                             }>-</Tcount>
                         </Counter>
                         <Images>
@@ -129,7 +128,7 @@ const Content = styled.div`
     width: 50%;
 `;
 const Image = styled.img`
-    
+    margin: auto;
     height: 100%;
     max-width: 90%;
 `;

@@ -231,6 +231,7 @@ export default class App extends Component{
           if(error) console.log(`Error : ${error}`)
             return ( 
             <Navbar 
+              WhichCurrency = {this.state.whichCurrency}
               HandleItemTotal = {this.handleItemTotal}
               HandleSold = {this.handleSoldCount}
               ShowCart = {this.state.showCart}

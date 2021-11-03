@@ -11,7 +11,6 @@ export default class CartItem extends Component {
             values : Object.values(this.props.product.Attributes),
             gallery : this.props.Photos,
             count : 0,
-            test : true
         }
     }
     handleRight = (e) => {
@@ -81,11 +80,11 @@ export default class CartItem extends Component {
                 <Media>
                         <Counter>
                             <Tcount onClick={
-                                 () => {this.props.HandleSold('plus', product); this.setState({test : !this.state.test}) }
+                                 ()=>this.props.HandleSold('plus', product)
                             }>+</Tcount>
                             <Count>{product.count}</Count>
                             <Tcount onClick={
-                                () => {this.props.HandleSold('minus', product); this.setState({test : !this.state.test}) }
+                                ()=>this.props.HandleSold('minus', product)
                             }>-</Tcount>
                         </Counter>
                         <Images>
@@ -109,7 +108,6 @@ const Bright = styled.p`
     right: 5px;
     top: 40%;
     cursor: pointer;
-   
 `;
 const Bleft = styled.p`
     position: absolute;
