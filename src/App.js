@@ -326,7 +326,6 @@ const shallowEqual = function (object1, object2) {
       }
     }
     return true;
-  }else{
-    return false
   }
+  return true
 }
