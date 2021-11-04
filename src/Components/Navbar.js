@@ -17,7 +17,13 @@ export default class Navbar extends Component{
              Product : this.props.ItemsSold,    
         }
     }
-
+    handleItems = () => {
+        let count = 0;
+        for (let i = 0; i < this.props.Sold.length; i++) {
+            count += this.props.Sold[i].count;
+        }
+        return count
+    }
     handleCategory=(val)=>{
         this.setState({
             whichCategory : val
@@ -169,7 +175,7 @@ export default class Navbar extends Component{
                                     {
                                     this.props.Sold[0] 
                                     && 
-                                    <Test>{this.props.Sold.length}</Test>
+                                    <Test>{this.handleItems()}</Test>
                                     }
                                     <img  src={vector} alt="Purchases" />
 
@@ -204,7 +210,7 @@ export default class Navbar extends Component{
                                 {
                                     this.props.Sold.map((item) => {
                                         return <MiniCart 
-                                                HandlePrice = {this.props.HandlePrice}
+                                                Price = {this.props.HandlePrice(item.Product.prices)}
                                                 product = {item} 
                                                 Product = {item.Product}
                                                 Attributes = {item.Attributes}
@@ -354,8 +360,8 @@ const Test = styled.div`
     position: absolute;
     right: -10px;
     top: -7px;
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 19px;
     background-color: black;
     text-align: center;
     color: white;
@@ -364,7 +370,7 @@ const Test = styled.div`
     border-radius: 60px;
     font-weight: bold;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 14px;
 `;
 
 const Choice = styled.div`

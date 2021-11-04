@@ -30,6 +30,7 @@ export default class Cart extends Component {
                             Photos = {item.Product.gallery}
                             key = {uuidv4()} 
                             HandleSold = {this.props.HandleSold}
+                            Price = {this.props.HandlePrice(item.Product.prices)}
                         />
                     })
                 }

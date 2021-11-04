@@ -48,7 +48,7 @@ export default class CartItem extends Component {
                         <Title>{Product.name}</Title>
                         <Brand>{Product.brand}</Brand>
                     </Header>
-                    <Price>{this.props.HandleItemTotal(Product.prices, product.count)}</Price>
+                    <Price>{this.props.Price}</Price>
                     <Attributes>
                         <AttributeNames>
                             {
@@ -125,9 +125,11 @@ const Content = styled.div`
     width: 50%;
 `;
 const Image = styled.img`
-    width: 85%;
-    padding: 15px;
-    height: 85%;
+    width: auto;
+    max-width: 150px;
+    height: auto;
+    max-height: 200px;  
+    margin: 5px;
 `;
 const Header = styled.div`
     
@@ -190,8 +192,6 @@ const Counter = styled.div`
     text-align: center;
 `;
 const Images = styled.div`
-    width: 30%;
-    height: 230px;
     display: flex;
     justify-content: flex-end;
     align-content: center;
