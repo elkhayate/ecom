@@ -191,6 +191,7 @@ const Counter = styled.div`
     justify-content: space-around;
     text-align: center;
 `;
+
 const Images = styled.div`
     display: flex;
     justify-content: flex-end;
